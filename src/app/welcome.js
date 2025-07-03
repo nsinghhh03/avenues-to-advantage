@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import styles from "./welcome.module.css";
+import { useRouter } from "next/navigation";
 
 export default function Welcome() {
+  const router = useRouter();
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -13,7 +16,7 @@ export default function Welcome() {
               fill
               className={styles.globeImage}
               priority
-              
+              sizes="(max-width: 1000px) 100vw, 700px"
             />
           </div>
           <div className={styles.bubble}>
@@ -27,7 +30,7 @@ export default function Welcome() {
           <div className={styles.arrowContainer}>
             <span className={styles.downArrow}>↓</span>
           </div>
-          <button className={styles.startButton}>Get started</button>
+          <button className={styles.startButton} onClick={() => router.push("/playgame")}>Get started</button>
         </div>
       </main>
     </div>
