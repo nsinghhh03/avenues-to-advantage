@@ -2,15 +2,13 @@
 import styles from './playgame.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-let lastClickTime = 0;
+let lastClickTime = null;
 export default function PlayGame() {
-  if (Date.now() - lastClickTime < 10000){
-    return ;
-  }
-  lastClickTime = Date.now();
+  
   const router = useRouter();
 
   const handleSpeak = async () => {
+    console.log("speaking");
     const text = "Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.";
     const res = await fetch('/api/tts', {
       method: 'POST',
@@ -20,6 +18,10 @@ export default function PlayGame() {
     const audioBlob = await res.blob();
     const audioUrl = URL.createObjectURL(audioBlob);
     const audio = new Audio(audioUrl);
+    if ( Date.now() - lastClickTime < 10000){
+      return ;
+    }
+    lastClickTime = Date.now();
     audio.play();
   };
 
