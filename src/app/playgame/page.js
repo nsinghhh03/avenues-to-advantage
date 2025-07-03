@@ -2,9 +2,27 @@
 import styles from './playgame.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
+let lastClickTime = 0;
 export default function PlayGame() {
+  if (Date.now() - lastClickTime < 10000){
+    return ;
+  }
+  lastClickTime = Date.now();
   const router = useRouter();
+
+  const handleSpeak = async () => {
+    const text = "Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.";
+    const res = await fetch('/api/tts', {
+      method: 'POST',
+      body: JSON.stringify({ text }),
+      headers: { 'Content-Type': 'application/json' }
+    });
+    const audioBlob = await res.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audio = new Audio(audioUrl);
+    audio.play();
+  };
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -31,7 +49,11 @@ export default function PlayGame() {
       </nav>
       <main className={styles.main}>
         <div className={styles.descriptionBox}>
-          <button className={styles.speakerIcon} style={{background: 'none', border: 'none', padding: 0, marginRight: 10, cursor: 'pointer'}}>
+          <button
+            className={styles.speakerIcon}
+            onClick={handleSpeak}
+            style={{background: 'none', border: 'none', padding: 0, marginRight: 10, cursor: 'pointer'}}
+          >
             <Image src="/speaker-filled-audio-tool.png" alt="Speaker" width={24} height={24} />
           </button>
           <p>
