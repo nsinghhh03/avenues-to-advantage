@@ -13,7 +13,7 @@ export default function Welcome() {
               fill
               className={styles.globeImage}
               priority
-              sizes="(max-width: 400px) 80vw, 300px"
+              
             />
           </div>
           <div className={styles.bubble}>
