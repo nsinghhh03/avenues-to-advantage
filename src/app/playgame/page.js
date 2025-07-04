@@ -7,21 +7,8 @@ export default function PlayGame() {
   
   const router = useRouter();
 
-  const handleSpeak = async () => {
-    console.log("speaking");
-    const text = "Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.";
-    const res = await fetch('/api/tts', {
-      method: 'POST',
-      body: JSON.stringify({ text }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const audioBlob = await res.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
-    const audio = new Audio(audioUrl);
-    if ( Date.now() - lastClickTime < 10000){
-      return ;
-    }
-    lastClickTime = Date.now();
+  const handleSpeak = () => {
+    const audio = new Audio('/firstpage.mp3');
     audio.play();
   };
 
@@ -71,7 +58,7 @@ export default function PlayGame() {
             className={styles.boardImage}
             priority
           />
-        </div>
+        </div> 
         <button className={styles.continueButton}>Continue</button>
       </main>
     </div>
