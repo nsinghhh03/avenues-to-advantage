@@ -146,4 +146,16 @@
 .continueButton:hover {
   background: #FFD966;
   box-shadow: 1.5px 3px 0 #222;
+}
+
+@media (max-width: 600px) {
+  .boardImageWrapper {
+    width: 95vw;
+    height: auto;
+  }
+  .continueButton {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+  /* Add more mobile-specific styles here */
 } 
