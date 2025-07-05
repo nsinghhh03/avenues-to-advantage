@@ -2,15 +2,36 @@
 import styles from './playgame.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-let lastClickTime = null;
+import { useRef, useEffect, useState } from 'react';
+
 export default function PlayGame() {
   
   const router = useRouter();
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef(0);
+  const lastClickTime = useRef(0);
 
-  const handleSpeak = () => {
+  const handleSpeak = async () => {
+    
+    if (Date.now() - lastClickTime.current < 10000) {
+      return;
+    }
+    lastClickTime.current = Date.now();
+    setIsMuted(false);
     const audio = new Audio('/firstpage.mp3');
+    audioRef.current = audio;
     audio.play();
   };
+
+  // Cleanup: stop audio when component unmounts
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
 
   return (
     <div className={styles.page}>
@@ -43,7 +64,12 @@ export default function PlayGame() {
             onClick={handleSpeak}
             style={{background: 'none', border: 'none', padding: 0, marginRight: 10, cursor: 'pointer'}}
           >
-            <Image src="/speaker-filled-audio-tool.png" alt="Speaker" width={24} height={24} />
+            <Image
+              src={isMuted ? "/mute.png" : "/speaker-filled-audio-tool.png"}
+              alt={isMuted ? "Muted" : "Speaker"}
+              width={24}
+              height={24}
+            />
           </button>
           <p>
             Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.
