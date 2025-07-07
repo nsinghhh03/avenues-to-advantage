@@ -85,7 +85,7 @@ export default function PlayGame() {
             priority
           />
         </div> 
-        <button className={styles.continueButton}>Continue</button>
+        <button className={styles.continueButton} onClick={() => router.push("/playgame/spinner")}>Continue</button>
       </main>
     </div>
   );
