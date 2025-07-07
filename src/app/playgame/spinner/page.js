@@ -11,17 +11,17 @@ export default function SpinnerPage() {
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
 
-  // Spinner state - track spinning animation and rotation angles for both players
+  // Spinner state for both players
   const [spinning1, setSpinning1] = useState(false);
   const [spinning2, setSpinning2] = useState(false);
   const [angle1, setAngle1] = useState(0);
   const [angle2, setAngle2] = useState(0);
+  const [result1, setResult1] = useState("");
+  const [result2, setResult2] = useState("");
 
-  // Audio playback with rate limiting (prevents spam clicking)
+  // Audio playback with rate limiting
   const handleSpeak = async () => {
-    if (Date.now() - lastClickTime.current < 10000) {
-      return;
-    }
+    if (Date.now() - lastClickTime.current < 10000) return;
     lastClickTime.current = Date.now();
     setIsMuted(false);
     const audio = new Audio('/firstpage.mp3');
@@ -29,7 +29,7 @@ export default function SpinnerPage() {
     audio.play();
   };
 
-  // Cleanup audio when component unmounts
+  // Cleanup audio on unmount
   useEffect(() => {
     return () => {
       if (audioRef.current) {
@@ -39,29 +39,70 @@ export default function SpinnerPage() {
     };
   }, []);
 
-  // Spinner logic - handles spinning animation for both players
+  // Spinner logic - spins for 3.5s, then sets result
   const spin = (player) => {
-    const randomAngle = 360 * 3 + Math.floor(Math.random() * 360); // 3 full spins + random
+    const spinDuration = 3500; // ms
+    const randomAngle = 360 * 5 + Math.floor(Math.random() * 360); // 5 full spins + random
     if (player === 1) {
       setSpinning1(true);
+      setResult1("");
       setAngle1(randomAngle);
-      setTimeout(() => setSpinning1(false), 2000);
+      setTimeout(() => {
+        setSpinning1(false);
+        setResult1(getResultColor(randomAngle));
+      }, spinDuration);
     } else {
       setSpinning2(true);
+      setResult2("");
       setAngle2(randomAngle);
-      setTimeout(() => setSpinning2(false), 2000);
-    }   
+      setTimeout(() => {
+        setSpinning2(false);
+        setResult2(getResultColor(randomAngle));
+      }, spinDuration);
+    }
+  };
+
+  // Helper to determine color at the top (0 deg is top)
+  function getResultColor(angle) {
+    // Normalize angle to [0, 360)
+    const normalized = ((angle % 360) + 360) % 360;
+    // Each slice is 45deg, starting at 0deg (top)
+    const slice = Math.floor((normalized + 22.5) / 45) % 8; // +22.5 to center the slice
+    // Even slices are purple, odd are green
+    return slice % 2 === 0 ? "Purple!" : "Green!";
+  }
+
+  // Simple button style for player labels
+  const playerBtnStyle = {
+    background: '#fff',
+    color: '#333',
+    border: '2px solid #bbb',
+    borderRadius: '20px',
+    padding: '0.3rem 1.2rem',
+    fontWeight: 700,
+    fontSize: '1.1rem',
+    marginBottom: 10,
+    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+    display: 'inline-block',
+  };
+
+  // Arrow style: perfectly centered above spinner
+  const arrowStyle = {
+    position: 'absolute',
+    left: '50%',
+    top: '27.8px', // adjust as needed for your arrow image
+    transform: 'translateX(-50%)',
+    zIndex: 2,
+    pointerEvents: 'none',
   };
 
   return (
-    // Main page container with purple background
     <div className={styles.page} style={{background: '#e9e6fa'}}>
-      {/* Header with back button and title */}
+      {/* Header and nav */}
       <header className={styles.header}>
         <button className={styles.backButton} aria-label="Back" onClick={() => router.push("/playgame")}>←</button>
         <h1 className={styles.title}>Play Game</h1>
       </header>
-      {/* Navigation bar with game options */}
       <nav className={styles.navbar}>
         <button className={`${styles.navButton} ${styles.active}`}> 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
@@ -81,7 +122,7 @@ export default function SpinnerPage() {
         </button>
       </nav>
       <main className={styles.main}>
-        {/* Instructions box with audio button and game rules */}
+        {/* Instructions */}
         <div className={styles.descriptionBox} style={{maxWidth: 700}}>
           <button
             className={styles.speakerIcon}
@@ -99,54 +140,34 @@ export default function SpinnerPage() {
             First, let's pick which characters we are going to play in the game. Decide who will be Player 1 and Player 2. Then, click the spinners below to decide which character you'll play. If the spinner lands on a purple space, you get to pick a <span style={{color: '#a259d9', fontWeight: 600}}>PURPLE</span> character. If the spinner lands on a green space, you get to pick one of the <span style={{color: '#3bb273', fontWeight: 600}}>GREEN</span> characters.
           </p>
         </div>
-        {/* Spinner container with both player wheels */}
+        {/* Spinners */}
         <div style={{display: 'flex', justifyContent: 'center', gap: '3rem', margin: '2rem 0'}}>
           {/* Player 1 spinner */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <div style={{fontWeight: 600, marginBottom: 10}}>Player 1</div>
+            <span style={playerBtnStyle}>Player 1</span>
             <div style={{ position: 'relative', width: 120, height: 120 }}>
-              <SpinnerWheel angle={angle1} spinning={spinning1} player={1} onSpin={spin} />
-              {/* Arrow pointer positioned above the spinner */}
-              <Image
-                src="/arrow.webp"
-                alt="Pointer"
-                width={32}
-                height={32}
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '-16px',
-                  transform: 'translateX(-50%)',
-                  zIndex: 2,
-                  pointerEvents: 'none'
-                }}
-              />
+              <SpinnerWheel angle={angle1} spinning={spinning1} player={1} onSpin={spinning1 ? undefined : spin} />
+              <Image src="/arrow.webp" alt="Pointer" width={32} height={32} style={arrowStyle} />
+            </div>
+            {/* Show result after spin */}
+            <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result1 === 'Purple!' ? '#a259d9' : '#3bb273'}}>
+              {result1}
             </div>
           </div>
           {/* Player 2 spinner */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-            <div style={{fontWeight: 600, marginBottom: 10}}>Player 2</div>
+            <span style={playerBtnStyle}>Player 2</span>
             <div style={{ position: 'relative', width: 120, height: 120 }}>
-              <SpinnerWheel angle={angle2} spinning={spinning2} player={2} onSpin={spin} />
-              {/* Arrow pointer positioned above the spinner */}
-              <Image
-                src="/arrow.webp"
-                alt="Pointer"
-                width={32}
-                height={32}
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '-16px',
-                  transform: 'translateX(-50%)',
-                  zIndex: 2,
-                  pointerEvents: 'none'
-                }}
-              />
+              <SpinnerWheel angle={angle2} spinning={spinning2} player={2} onSpin={spinning2 ? undefined : spin} />
+              <Image src="/arrow.webp" alt="Pointer" width={32} height={32} style={arrowStyle} />
+            </div>
+            {/* Show result after spin */}
+            <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result2 === 'Purple!' ? '#a259d9' : '#3bb273'}}>
+              {result2}
             </div>
           </div>
         </div>
-        {/* Continue button to proceed to the game */}
+        {/* Continue button */}
         <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() => router.push('/game')}>
           Continue
         </button>
@@ -161,31 +182,31 @@ function SpinnerWheel({ angle, spinning, player, onSpin }) {
   const colors = ['#a259d9', '#3bb273', '#a259d9', '#3bb273', '#a259d9', '#3bb273', '#a259d9', '#3bb273'];
   const size = 120;
   const numSlices = colors.length;
-  const sliceAngle = 360 / numSlices; // Calculate angle for each slice (360° / 8 = 45°)
+  const sliceAngle = 360 / numSlices; // Each slice is 45 degrees
   return (
     <svg
       width={size}
       height={size}
       style={{
         transform: `rotate(${angle}deg)`, // Rotate the wheel based on current angle
-        transition: spinning ? 'transform 2s cubic-bezier(0.23, 1, 0.32, 1)' : 'none', // Smooth animation when spinning
+        transition: spinning ? 'transform 3.5s cubic-bezier(0.15, 0.85, 0.35, 1.1)' : 'none', // Longer, more natural spin
         willChange: 'transform',
         display: 'block',
-        cursor: 'pointer',
+        cursor: onSpin ? 'pointer' : 'default',
         borderRadius: '50%',
         border: '4px solid #bbb',
         background: '#fff',
         boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
       }}
       viewBox={`0 0 ${size} ${size}`}
-      onClick={() => onSpin(player)} // Call spin function with the correct player number
+      onClick={onSpin ? () => onSpin(player) : undefined}
     >
-      {/* Generate each colored slice of the spinner wheel */}
+      {/* Draw each colored slice */}
       {colors.map((color, i) => {
-        const startAngle = i * sliceAngle; // Start angle for this slice
-        const endAngle = (i + 1) * sliceAngle; // End angle for this slice
-        const largeArc = sliceAngle > 180 ? 1 : 0; // SVG arc flag
-        // Calculate coordinates for the slice boundaries using trigonometry
+        const startAngle = i * sliceAngle;
+        const endAngle = (i + 1) * sliceAngle;
+        const largeArc = sliceAngle > 180 ? 1 : 0;
+        // Calculate coordinates for the slice boundaries
         const x1 = size / 2 + (size / 2) * Math.cos((Math.PI * startAngle) / 180);
         const y1 = size / 2 + (size / 2) * Math.sin((Math.PI * startAngle) / 180);
         const x2 = size / 2 + (size / 2) * Math.cos((Math.PI * endAngle) / 180);
