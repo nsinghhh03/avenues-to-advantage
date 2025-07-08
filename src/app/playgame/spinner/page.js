@@ -182,7 +182,7 @@ export default function ChooseCharacterPageContent() {
             <span style={playerBtnStyle}>Player 1</span>
             <div style={{ position: 'relative', width: spinnerSize, height: spinnerSize }}>
               <SpinnerWheel angle={angle1} spinning={spinning1} player={1} onSpin={spinning1 ? undefined : spin} size={spinnerSize} />
-              <Image src="/arrow.webp" alt="Pointer" width={40} height={40} style={arrowStyle} />
+              <Image src="/Arrow.webp" alt="Pointer" width={40} height={40} style={arrowStyle} />
             </div>
             {/* Show result after spin */}
             <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result1 === 'Purple!' ? '#a259d9' : '#3bb273'}}>
@@ -195,7 +195,7 @@ export default function ChooseCharacterPageContent() {
             <span style={playerBtnStyle}>Player 2</span>
             <div style={{ position: 'relative', width: spinnerSize, height: spinnerSize }}>
               <SpinnerWheel angle={angle2} spinning={spinning2} player={2} onSpin={spinning2 ? undefined : spin} size={spinnerSize} />
-              <Image src="/arrow.webp" alt="Pointer" width={40} height={40} style={arrowStyle} />
+              <Image src="/Arrow.webp" alt="Pointer" width={40} height={40} style={arrowStyle} />
             </div>
             {/* Show result after spin */}
             <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result2 === 'Purple!' ? '#A24DE2' : '#00975B'}}>
