@@ -1,10 +1,11 @@
 "use client";
+import { Suspense } from 'react';
 import styles from '../playgame.module.css';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 
-export default function SpinnerPage() {
+function ChooseCharacterPageContent() {
   // Navigation and audio state
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
@@ -256,5 +257,13 @@ function SpinnerWheel({ angle, spinning, player, onSpin, size = 120 }) {
         );
       })}
     </svg>
+  );
+}
+
+export default function ChooseCharacterPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ChooseCharacterPageContent />
+    </Suspense>
   );
 } 
