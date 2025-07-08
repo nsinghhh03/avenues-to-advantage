@@ -15,27 +15,9 @@ export default function ChooseCharacterClient() {
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
 
-  const handleSpeak = async () => {
-    // If audio is currently playing, pause and mute
-    if (audioRef.current && !audioRef.current.paused) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setIsMuted(true);
-      return;
-    }
-    // Otherwise, play audio as before
-    if (Date.now() - lastClickTime.current < 10000) return;
-    lastClickTime.current = Date.now();
-    setIsMuted(false);
-    const audio = new Audio('/page3.mp3');
-    audioRef.current = audio;
-    audio.play();
-    // When audio ends, set isMuted back to true
-    audio.onended = () => setIsMuted(true);
-  };
-
-  // Cleanup audio on unmount
   useEffect(() => {
+    audioRef.current = new Audio('/page3.mp3');
+    audioRef.current.onended = () => setIsMuted(true);
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -43,6 +25,21 @@ export default function ChooseCharacterClient() {
       }
     };
   }, []);
+
+  const handleSpeak = () => {
+    if (!audioRef.current) return;
+    if (!audioRef.current.paused) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsMuted(true);
+      return;
+    }
+    if (Date.now() - lastClickTime.current < 10000) return;
+    lastClickTime.current = Date.now();
+    setIsMuted(false);
+    audioRef.current.currentTime = 0;
+    audioRef.current.play();
+  };
 
   const greenCharacters = [
     { src: '/green_player_1.png', alt: 'Green Girl 1' },
