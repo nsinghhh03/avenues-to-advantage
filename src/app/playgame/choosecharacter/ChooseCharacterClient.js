@@ -3,6 +3,7 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
+import InstructionsModal from "./InstructionsModal"; // Create this component
 
 export default function ChooseCharacterClient() {
   const router = useRouter();
@@ -54,6 +55,10 @@ export default function ChooseCharacterClient() {
     { src: '/purple_player_4.png', alt: 'Purple Girl 3' },
   ];
 
+  const [selectedGreen, setSelectedGreen] = useState(null);
+  const [selectedPurple, setSelectedPurple] = useState(null);
+  const [showInstructions, setShowInstructions] = useState(false);
+
   if (!player1 || !player2) {
     return <div>Loading...</div>;
   }
@@ -70,7 +75,7 @@ export default function ChooseCharacterClient() {
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button className={`${styles.navButton} ${styles.instructions}`}> 
+        <button className={`${styles.navButton} ${styles.instructions}`} onClick={() => setShowInstructions(true)}> 
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>
@@ -83,7 +88,7 @@ export default function ChooseCharacterClient() {
           View Cards
         </button>
       </nav>
-      <main className={styles.main}>
+      <main className={styles.main} style={{ filter: showInstructions ? "blur(2px) brightness(0.7)" : "none" }}>
         {/* Instructions */}
         <div className={styles.descriptionBox} style={{maxWidth: 700, marginBottom: 32}}>
           <button
@@ -111,7 +116,13 @@ export default function ChooseCharacterClient() {
             {player1 === 'Green!' && <span style={{fontWeight: 700, color: '#00975B', marginRight: 8}}>Player 1</span>}
             {player2 === 'Green!' && <span style={{fontWeight: 700, color: '#00975B', marginRight: 8}}>Player 2</span>}
             {greenCharacters.map((char, idx) => (
-              <Image key={idx} src={char.src} alt={char.alt} width={111} height={111} />
+              <div
+                key={idx}
+                className={`${styles.character} ${selectedGreen !== null && selectedGreen !== idx ? styles.dimmed : ""} ${selectedGreen === idx ? styles.selected : ""}`}
+                onClick={() => setSelectedGreen(idx)}
+              >
+                <Image src={char.src} alt={char.alt} width={111} height={111} />
+              </div>
             ))}
           </div>
           {/* Purple row */}
@@ -120,7 +131,13 @@ export default function ChooseCharacterClient() {
             {player1 === 'Purple!' && <span style={{fontWeight: 700, color: '#A24DE2', marginRight: 8}}>Player 1</span>}
             {player2 === 'Purple!' && <span style={{fontWeight: 700, color: '#A24DE2', marginRight: 8}}>Player 2</span>}
             {purpleCharacters.map((char, idx) => (
-              <Image key={idx} src={char.src} alt={char.alt} width={111} height={111} />
+              <div
+                key={idx}
+                className={`${styles.character} ${selectedPurple !== null && selectedPurple !== idx ? styles.dimmed : ""} ${selectedPurple === idx ? styles.selected : ""}`}
+                onClick={() => setSelectedPurple(idx)}
+              >
+                <Image src={char.src} alt={char.alt} width={111} height={111} />
+              </div>
             ))}
           </div>
         </div>
@@ -129,6 +146,10 @@ export default function ChooseCharacterClient() {
           Continue
         </button>
       </main>
+      {/* Instructions Modal */}
+      {showInstructions && (
+        <InstructionsModal onClose={() => setShowInstructions(false)} />
+      )}
     </div>
   );
 } 

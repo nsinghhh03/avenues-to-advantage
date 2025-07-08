@@ -34,7 +34,7 @@ export default function ChooseCharacterPageContent() {
     if (Date.now() - lastClickTime.current < 10000) return;
     lastClickTime.current = Date.now();
     setIsMuted(false);
-    const audio = new Audio('/page2.mp3');
+    const audio = new Audio('/secondpage.mp3');
     audioRef.current = audio;
     audio.play();
     // When audio ends, set isMuted back to true

@@ -148,6 +148,24 @@
   box-shadow: 1.5px 3px 0 #222;
 }
 
+.characterRow {
+  display: flex;
+  gap: 1rem;
+}
+.character {
+  cursor: pointer;
+  transition: opacity 0.3s, box-shadow 0.3s;
+}
+.dimmed {
+  opacity: 0.4;
+  filter: grayscale(60%);
+}
+.selected {
+  border: 3px solid #ffd166;
+  box-shadow: 0 0 12px #ffd166;
+  opacity: 1;
+}
+
 @media (max-width: 600px) {
   .boardImageWrapper {
     width: 95vw;
@@ -167,4 +185,62 @@
   .title {
     font-size: 1.2rem;
   } 
+} 
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.modal {
+  background: #fff;
+  border-radius: 18px;
+  padding: 2rem;
+  max-width: 630px;
+  width: 90vw;
+  max-height: 90vh;      /* NEW: never taller than viewport */
+  overflow-y: auto;      /* NEW: scroll if needed */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  text-align: center;
+}
+.closeButton {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #222;
+  line-height: 1;
+}
+.textAndAudio {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  justify-content: center;
+}
+.speakerIcon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  padding: 0;
+}
+
+
+.speakerIconBottomRight {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  padding: 0;
+}
+
