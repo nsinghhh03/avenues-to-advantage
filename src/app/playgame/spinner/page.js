@@ -18,15 +18,26 @@ export default function SpinnerPage() {
   const [angle2, setAngle2] = useState(0);
   const [result1, setResult1] = useState("");
   const [result2, setResult2] = useState("");
+  const [slice1, setSlice1] = useState(null); // store Player 1's slice index
 
-  // Audio playback with rate limiting
+  // Audio playback with toggle mute/play
   const handleSpeak = async () => {
+    // If audio is currently playing, pause and mute
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsMuted(true);
+      return;
+    }
+    // Otherwise, play audio as before
     if (Date.now() - lastClickTime.current < 10000) return;
     lastClickTime.current = Date.now();
     setIsMuted(false);
-    const audio = new Audio('/firstpage.mp3');
+    const audio = new Audio('/page2.mp3');
     audioRef.current = audio;
     audio.play();
+    // When audio ends, set isMuted back to true
+    audio.onended = () => setIsMuted(true);
   };
 
   // Cleanup audio on unmount
@@ -39,19 +50,38 @@ export default function SpinnerPage() {
     };
   }, []);
 
-  // Spinner logic - spins for 3.5s, then sets result
+  // Spinner logic - spins for 1s, then sets result
   const spin = (player) => {
-    const spinDuration = 3500; // ms
-    const randomAngle = 360 * 5 + Math.floor(Math.random() * 360); // 5 full spins + random
+    const spinDuration = 1000; // ms
+    const numSlices = 8;
+    const sliceAngle = 360 / numSlices;
     if (player === 1) {
+      // Player 1: random spin
+      const randomSlice = Math.floor(Math.random() * numSlices);
+      const randomAngle = 360 * 3 + (randomSlice * sliceAngle); // 3 full spins + lands on random slice
       setSpinning1(true);
       setResult1("");
       setAngle1(randomAngle);
       setTimeout(() => {
         setSpinning1(false);
         setResult1(getResultColor(randomAngle));
+        setSlice1(randomSlice);
       }, spinDuration);
     } else {
+      // Player 2: always land on opposite color
+      if (slice1 === null) return; // Player 1 must spin first
+      // Player 1's color: even = purple, odd = green
+      const player1Color = slice1 % 2 === 0 ? 'purple' : 'green';
+      // Find all slices of the opposite color
+      const oppositeColorSlices = [];
+      for (let i = 0; i < numSlices; i++) {
+        if ((player1Color === 'purple' && i % 2 === 1) || (player1Color === 'green' && i % 2 === 0)) {
+          oppositeColorSlices.push(i);
+        }
+      }
+      // Pick a random slice of the opposite color
+      const randomOppositeSlice = oppositeColorSlices[Math.floor(Math.random() * oppositeColorSlices.length)];
+      const randomAngle = 360 * 3 + (randomOppositeSlice * sliceAngle);
       setSpinning2(true);
       setResult2("");
       setAngle2(randomAngle);
@@ -72,29 +102,33 @@ export default function SpinnerPage() {
     return slice % 2 === 0 ? "Purple!" : "Green!";
   }
 
-  // Simple button style for player labels
+  // NavButton-like style for player labels, with #CCE5E5 background
   const playerBtnStyle = {
-    background: '#fff',
-    color: '#333',
-    border: '2px solid #bbb',
-    borderRadius: '20px',
-    padding: '0.3rem 1.2rem',
-    fontWeight: 700,
+    background: '#CCE5E5',
+    color: '#222',
+    border: '2px solid #222',
+    borderRadius: '12px',
+    padding: '12px 22px',
+    fontWeight: 'bold',
     fontSize: '1.1rem',
-    marginBottom: 10,
-    boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+    boxShadow: '0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222',
     display: 'inline-block',
+    marginBottom: 10,
+    letterSpacing: 1,
   };
 
   // Arrow style: perfectly centered above spinner
   const arrowStyle = {
     position: 'absolute',
     left: '50%',
-    top: '27.8px', // adjust as needed for your arrow image
+    top: '42px', // adjust as needed for your arrow image
     transform: 'translateX(-50%)',
     zIndex: 2,
     pointerEvents: 'none',
   };
+
+  // Upscale spinner size
+  const spinnerSize = 160;
 
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
@@ -145,9 +179,9 @@ export default function SpinnerPage() {
           {/* Player 1 spinner */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
             <span style={playerBtnStyle}>Player 1</span>
-            <div style={{ position: 'relative', width: 120, height: 120 }}>
-              <SpinnerWheel angle={angle1} spinning={spinning1} player={1} onSpin={spinning1 ? undefined : spin} />
-              <Image src="/arrow.webp" alt="Pointer" width={32} height={32} style={arrowStyle} />
+            <div style={{ position: 'relative', width: spinnerSize, height: spinnerSize }}>
+              <SpinnerWheel angle={angle1} spinning={spinning1} player={1} onSpin={spinning1 ? undefined : spin} size={spinnerSize} />
+              <Image src="/arrow.webp" alt="Pointer" width={40} height={40} style={arrowStyle} />
             </div>
             {/* Show result after spin */}
             <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result1 === 'Purple!' ? '#a259d9' : '#3bb273'}}>
@@ -156,19 +190,20 @@ export default function SpinnerPage() {
           </div>
           {/* Player 2 spinner */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            
             <span style={playerBtnStyle}>Player 2</span>
-            <div style={{ position: 'relative', width: 120, height: 120 }}>
-              <SpinnerWheel angle={angle2} spinning={spinning2} player={2} onSpin={spinning2 ? undefined : spin} />
-              <Image src="/arrow.webp" alt="Pointer" width={32} height={32} style={arrowStyle} />
+            <div style={{ position: 'relative', width: spinnerSize, height: spinnerSize }}>
+              <SpinnerWheel angle={angle2} spinning={spinning2} player={2} onSpin={spinning2 ? undefined : spin} size={spinnerSize} />
+              <Image src="/arrow.webp" alt="Pointer" width={40} height={40} style={arrowStyle} />
             </div>
             {/* Show result after spin */}
-            <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result2 === 'Purple!' ? '#a259d9' : '#3bb273'}}>
+            <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result2 === 'Purple!' ? '#A24DE2' : '#00975B'}}>
               {result2}
             </div>
           </div>
         </div>
         {/* Continue button */}
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() => router.push('/game')}>
+        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() => router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)}>
           Continue
         </button>
       </main>
@@ -177,10 +212,9 @@ export default function SpinnerPage() {
 }
 
 // Spinner wheel component - renders the SVG spinner with colored segments
-function SpinnerWheel({ angle, spinning, player, onSpin }) {
+function SpinnerWheel({ angle, spinning, player, onSpin, size = 120 }) {
   // 4 purple, 4 green (alternating) - defines the color pattern for the spinner
-  const colors = ['#a259d9', '#3bb273', '#a259d9', '#3bb273', '#a259d9', '#3bb273', '#a259d9', '#3bb273'];
-  const size = 120;
+  const colors = ['#A24DE2', '#00975B', '#A24DE2', '#00975B', '#A24DE2', '#00975B', '#A24DE2', '#00975B'];
   const numSlices = colors.length;
   const sliceAngle = 360 / numSlices; // Each slice is 45 degrees
   return (
