@@ -16,7 +16,7 @@ export default function ChooseCharacterClient() {
   const lastClickTime = useRef(0);
 
   useEffect(() => {
-    audioRef.current = new Audio('/page3.mp3');
+    audioRef.current = new Audio('/thirdpage.mp3');
     audioRef.current.onended = () => setIsMuted(true);
     return () => {
       if (audioRef.current) {
