@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 
-function ChooseCharacterPageContent() {
+export default function ChooseCharacterPageContent() {
   // Navigation and audio state
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
@@ -260,10 +260,3 @@ function SpinnerWheel({ angle, spinning, player, onSpin, size = 120 }) {
   );
 }
 
-export default function ChooseCharacterPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ChooseCharacterPageContent />
-    </Suspense>
-  );
-} 
