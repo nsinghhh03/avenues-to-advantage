@@ -243,4 +243,32 @@
   z-index: 10;
   padding: 0;
 }
+.spinner-wheel {
+  border-radius: 50%;
+  border: 4px solid #bbb;
+  background: conic-gradient(
+    #A24DE2 0deg 45deg,
+    #00975B 45deg 90deg,
+    #A24DE2 90deg 135deg,
+    #00975B 135deg 180deg,
+    #A24DE2 180deg 225deg,
+    #00975B 225deg 270deg,
+    #A24DE2 270deg 315deg,
+    #00975B 315deg 360deg
+  );
+  animation-fill-mode: forwards;
+}
+
+@keyframes spin-1 {
+  to {
+    transform: rotate(var(--spin-angle));
+  }
+}
+
+@keyframes spin-2 {
+  to {
+    transform: rotate(var(--spin-angle));
+  }
+}
+
 

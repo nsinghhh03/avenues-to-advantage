@@ -53,42 +53,50 @@ export default function ChooseCharacterPageContent() {
 
   // Spinner logic - spins for 1s, then sets result
   const spin = (player) => {
-    const spinDuration = 1000; // ms
+    const minSpins = 3;
+    const maxSpins = 5;
+    const spinDuration = 1000 + Math.floor(Math.random() * 700); // 1s to 1.7s
     const numSlices = 8;
     const sliceAngle = 360 / numSlices;
+    const spins = minSpins + Math.floor(Math.random() * (maxSpins - minSpins + 1));
+
     if (player === 1) {
-      // Player 1: random spin
       const randomSlice = Math.floor(Math.random() * numSlices);
-      const randomAngle = 360 * 3 + (randomSlice * sliceAngle); // 3 full spins + lands on random slice
+      const targetAngle = 360 - (randomSlice * sliceAngle) - (sliceAngle / 2);
+      const currentAngle = angle1 % 360;
+      const totalRotation = spins * 360 + targetAngle - currentAngle;
+      const newAngle = angle1 + totalRotation;
+
       setSpinning1(true);
       setResult1("");
-      setAngle1(randomAngle);
+      setAngle1(newAngle);
       setTimeout(() => {
         setSpinning1(false);
-        setResult1(getResultColor(randomAngle));
+        setResult1(getResultColor(newAngle));
         setSlice1(randomSlice);
       }, spinDuration);
     } else {
-      // Player 2: always land on opposite color
-      if (slice1 === null) return; // Player 1 must spin first
-      // Player 1's color: even = purple, odd = green
+      if (slice1 === null) return;
+
       const player1Color = slice1 % 2 === 0 ? 'purple' : 'green';
-      // Find all slices of the opposite color
       const oppositeColorSlices = [];
       for (let i = 0; i < numSlices; i++) {
-        if ((player1Color === 'purple' && i % 2 === 1) || (player1Color === 'green' && i % 2 === 0)) {
-          oppositeColorSlices.push(i);
-        }
+        const color = i % 2 === 0 ? 'purple' : 'green';
+        if (color !== player1Color) oppositeColorSlices.push(i);
       }
-      // Pick a random slice of the opposite color
+
       const randomOppositeSlice = oppositeColorSlices[Math.floor(Math.random() * oppositeColorSlices.length)];
-      const randomAngle = 360 * 3 + (randomOppositeSlice * sliceAngle);
+      const targetAngle = 360 - (randomOppositeSlice * sliceAngle) - (sliceAngle / 2);
+      const currentAngle = angle2 % 360;
+      const totalRotation = spins * 360 + targetAngle - currentAngle;
+      const newAngle = angle2 + totalRotation;
+
       setSpinning2(true);
       setResult2("");
-      setAngle2(randomAngle);
+      setAngle2(newAngle);
       setTimeout(() => {
         setSpinning2(false);
-        setResult2(getResultColor(randomAngle));
+        setResult2(getResultColor(newAngle));
       }, spinDuration);
     }
   };
@@ -211,7 +219,6 @@ export default function ChooseCharacterPageContent() {
     </div>
   );
 }
-
 // Spinner wheel component - renders the SVG spinner with colored segments
 function SpinnerWheel({ angle, spinning, player, onSpin, size = 120 }) {
   // 4 purple, 4 green (alternating) - defines the color pattern for the spinner
@@ -223,8 +230,8 @@ function SpinnerWheel({ angle, spinning, player, onSpin, size = 120 }) {
       width={size}
       height={size}
       style={{
-        transform: `rotate(${angle}deg)`, // Rotate the wheel based on current angle
-        transition: spinning ? 'transform 3.5s cubic-bezier(0.15, 0.85, 0.35, 1.1)' : 'none', // Longer, more natural spin
+        transform: `rotate(${angle}deg)`,
+        transition: 'transform 1s cubic-bezier(.17,.67,.83,.67)',
         willChange: 'transform',
         display: 'block',
         cursor: onSpin ? 'pointer' : 'default',
@@ -259,4 +266,3 @@ function SpinnerWheel({ angle, spinning, player, onSpin, size = 120 }) {
     </svg>
   );
 }
-

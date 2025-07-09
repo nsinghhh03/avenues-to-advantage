@@ -63,6 +63,15 @@ export default function ChooseCharacterClient() {
     return <div>Loading...</div>;
   }
 
+  // Robust cleanColor function
+  const cleanColor = (player) => {
+    if (!player) return '';
+    const val = player.toLowerCase().replace('!', '').trim();
+    if (val === 'green') return 'Green';
+    if (val === 'purple') return 'Purple';
+    return '';
+  };
+
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
       {/* Header and nav ... (unchanged) ... */}
@@ -113,8 +122,12 @@ export default function ChooseCharacterClient() {
           {/* Green row */}
           <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16}}>
             {/* Show Player 1/2 label if they landed on green */}
-            {player1 === 'Green!' && <span style={{fontWeight: 700, color: '#00975B', marginRight: 8}}>Player 1</span>}
-            {player2 === 'Green!' && <span style={{fontWeight: 700, color: '#00975B', marginRight: 8}}>Player 2</span>}
+            {(cleanColor(player1) === 'Green' || cleanColor(player2) === 'Green') && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: 12 }}>
+                {cleanColor(player1) === 'Green' && <span style={{fontWeight: 700, color: '#00975B'}}>Player 1</span>}
+                {cleanColor(player2) === 'Green' && <span style={{fontWeight: 700, color: '#00975B'}}>Player 2</span>}
+              </div>
+            )}
             {greenCharacters.map((char, idx) => (
               <div
                 key={idx}
@@ -128,8 +141,12 @@ export default function ChooseCharacterClient() {
           {/* Purple row */}
           <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
             {/* Show Player 1/2 label if they landed on purple */}
-            {player1 === 'Purple!' && <span style={{fontWeight: 700, color: '#A24DE2', marginRight: 8}}>Player 1</span>}
-            {player2 === 'Purple!' && <span style={{fontWeight: 700, color: '#A24DE2', marginRight: 8}}>Player 2</span>}
+            {(cleanColor(player1) === 'Purple' || cleanColor(player2) === 'Purple') && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: 12 }}>
+                {cleanColor(player1) === 'Purple' && <span style={{fontWeight: 700, color: '#A24DE2'}}>Player 1</span>}
+                {cleanColor(player2) === 'Purple' && <span style={{fontWeight: 700, color: '#A24DE2'}}>Player 2</span>}
+              </div>
+            )}
             {purpleCharacters.map((char, idx) => (
               <div
                 key={idx}
