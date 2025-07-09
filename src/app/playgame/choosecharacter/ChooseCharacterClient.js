@@ -27,9 +27,8 @@ export default function ChooseCharacterClient() {
     };
   }, []);
 
-  const handleSpeak = () => {
-    if (!audioRef.current) return;
-    if (!audioRef.current.paused) {
+  const handleSpeak = async () => {
+    if (audioRef.current && !audioRef.current.paused) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
       setIsMuted(true);
@@ -38,8 +37,15 @@ export default function ChooseCharacterClient() {
     if (Date.now() - lastClickTime.current < 10000) return;
     lastClickTime.current = Date.now();
     setIsMuted(false);
-    audioRef.current.currentTime = 0;
-    audioRef.current.play();
+
+    // Always create a new Audio instance to avoid race conditions
+    const audio = new Audio('/thirdpage.mp3');
+    audioRef.current = audio;
+    audio.play().catch((e) => {
+      // Optionally handle play() errors here
+      console.warn('Audio play interrupted:', e);
+    });
+    audio.onended = () => setIsMuted(true);
   };
 
   const greenCharacters = [
