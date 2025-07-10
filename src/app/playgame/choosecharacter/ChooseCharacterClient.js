@@ -3,7 +3,7 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
-import InstructionsModal from "./InstructionsModal"; 
+import InstructionsModal from "./InstructionsModal";  
 
 export default function ChooseCharacterClient() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function ChooseCharacterClient() {
   const player1 = searchParams.get('player1');
   const player2 = searchParams.get('player2');
 
-  // Audio state and logic (same as spinner page)
+  // audio logic
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
