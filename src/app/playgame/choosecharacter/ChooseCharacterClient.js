@@ -165,7 +165,11 @@ export default function ChooseCharacterClient() {
           </div>
         </div>
         {/* Continue button */}
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', marginTop: 32}}>
+        <button
+          className={styles.continueButton}
+          style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', marginTop: 32}}
+          onClick={() => router.push('/playgame/skincolor')}
+        >
           Continue
         </button>
       </main>
