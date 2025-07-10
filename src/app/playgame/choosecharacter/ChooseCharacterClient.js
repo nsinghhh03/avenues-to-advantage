@@ -3,7 +3,7 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
-import InstructionsModal from "./InstructionsModal"; // Create this component
+import InstructionsModal from "./InstructionsModal"; 
 
 export default function ChooseCharacterClient() {
   const router = useRouter();
@@ -103,7 +103,7 @@ export default function ChooseCharacterClient() {
           View Cards
         </button>
       </nav>
-      <main className={styles.main} style={{ filter: showInstructions ? "blur(2px) brightness(0.7)" : "none" }}>
+      <main className={styles.main} style={{ filter: showInstructions ? "blur(1.4px) brightness(0.7)" : "none" }}>
         {/* Instructions */}
         <div className={styles.descriptionBox} style={{maxWidth: 700, marginBottom: 32}}>
           <button
