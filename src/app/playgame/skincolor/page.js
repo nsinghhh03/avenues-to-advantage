@@ -23,7 +23,7 @@ export default function SkinColorPage() {
     if (Date.now() - lastClickTime.current < 10000) return;
     lastClickTime.current = Date.now();
     setIsMuted(false);
-    const audio = new Audio('/something.mp3');
+    const audio = new Audio('/melanin.mp3');
     audioRef.current = audio;
     audio.play().catch(() => {});
     audio.onended = () => setIsMuted(true);
@@ -73,21 +73,24 @@ export default function SkinColorPage() {
           </nav>
           {/* Description box */}
           <div
+            className="skincolor-descbox"
             style={{
-              background: '#fff',
-              border: '3px solid #222',
-              borderRadius: 20,
-              maxWidth: 650,
-              margin: '32px auto 24px auto',
-              padding: '16px 16px 12px 16px',
-              paddingRight: 56,
-              boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+              background: 'linear-gradient(180deg, #fcfcff 80%, #f3f3fa 100%)',
+              border: '1.2px solid #d2d2e0',
+              borderRadius: 36,
+              maxWidth: 780,
+              margin: '40px auto 32px auto',
+              padding: '38px 48px 34px 48px',
+              boxShadow: '-4px -4px 16px 0 rgba(34,34,34,0.13), 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222',
               position: 'relative',
-              fontSize: '0.98rem',
-              lineHeight: 1.45,
-              fontWeight: 600,
+              fontSize: '1.18rem',
+              lineHeight: 1.62,
+              fontWeight: 'bold',
               textAlign: 'center',
-              fontFamily: 'inherit',
+              fontFamily: 'Space Grotesk, Arial, sans-serif',
+              color: '#181818',
+              letterSpacing: '0.01em',
+              transition: 'box-shadow 0.2s, border 0.2s',
             }}
           >
             <button
@@ -115,9 +118,16 @@ export default function SkinColorPage() {
               Your characters have different skin colors! Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900', fontWeight: 700 }}>melanin</span>. If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. Your character has dark skin, so we might say that your character is Black. My character has lighter skin, so we might say my character is White. Sometimes we also say ‘people of color’ to talk about all the groups of people who aren’t white.”
             </span>
           </div>
+          {/* Add hover effect for the description box */}
+          <style jsx>{`
+            .skincolor-descbox:hover {
+              box-shadow: 0 8px 24px rgba(34,34,34,0.28), 4px 8px 0 #222;
+              border-color: #b6b6c8;
+            }
+          `}</style>
           {/* Illustration */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '32px 0 8px 0' }}>
-            <Image src="/kids.png" alt="Two children and a sun" width={360} height={270} style={{ marginBottom: 12 }} />
+            <Image src="/kids.png" alt="Two children and a sun" width={500} height={375} style={{ marginBottom: 12 }} />
           </div>
           {/* Continue button */}
           <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame')}>Continue</button>
