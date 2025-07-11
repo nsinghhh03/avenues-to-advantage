@@ -51,7 +51,7 @@ export default function SkinColorPage() {
           {/* Header and nav */}
           <header className={styles.header}>
             <button className={styles.backButton} aria-label="Back" onClick={() => router.back()}>←</button>
-            <h1 className={styles.title}>Play Game</h1>
+            <h1 style={{ fontSize: '1.6rem', color: '#222', fontWeight: 'bold', fontFamily: "'Space Grotesk', Arial, sans-serif", margin: 0 }}>Play Game</h1>
           </header>
           <nav className={styles.navbar}>
             <button className={`${styles.navButton} ${styles.active}`}> 
@@ -72,27 +72,7 @@ export default function SkinColorPage() {
             </button>
           </nav>
           {/* Description box */}
-          <div
-            className="skincolor-descbox"
-            style={{
-              background: 'linear-gradient(180deg, #fcfcff 80%, #f3f3fa 100%)',
-              border: '1.2px solid #d2d2e0',
-              borderRadius: 36,
-              maxWidth: 780,
-              margin: '40px auto 32px auto',
-              padding: '38px 48px 34px 48px',
-              boxShadow: '-4px -4px 16px 0 rgba(34,34,34,0.13), 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222',
-              position: 'relative',
-              fontSize: '1.18rem',
-              lineHeight: 1.62,
-              fontWeight: 'bold',
-              textAlign: 'center',
-              fontFamily: 'Space Grotesk, Arial, sans-serif',
-              color: '#181818',
-              letterSpacing: '0.01em',
-              transition: 'box-shadow 0.2s, border 0.2s',
-            }}
-          >
+          <div className={styles.descriptionBox} style={{ maxWidth: 830 }}>
             <button
               className={styles.speakerIcon}
               onClick={handleSpeak}
@@ -114,9 +94,11 @@ export default function SkinColorPage() {
                 height={24}
               />
             </button>
-            <span>
-              Your characters have different skin colors! Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900', fontWeight: 700 }}>melanin</span>. If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. Your character has dark skin, so we might say that your character is Black. My character has lighter skin, so we might say my character is White. Sometimes we also say ‘people of color’ to talk about all the groups of people who aren’t white.”
-            </span>
+            <p style={{margin: 0}}>
+              <span style={{fontWeight: 'bold'}}>
+                Your characters have different skin colors! Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900' }}>melanin</span>.
+              </span> If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. Your character has dark skin, so we might say that your character is Black. My character has lighter skin, so we might say my character is White. Sometimes we also say ‘people of color’ to talk about all the groups of people who aren’t white.”
+            </p>
           </div>
           {/* Add hover effect for the description box */}
           <style jsx>{`
