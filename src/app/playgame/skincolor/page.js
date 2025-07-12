@@ -54,7 +54,7 @@ export default function SkinColorPage() {
             <h1 style={{ fontSize: '1.6rem', color: '#222', fontWeight: 'bold', fontFamily: "'Space Grotesk', Arial, sans-serif", margin: 0 }}>Play Game</h1>
           </header>
           <nav className={styles.navbar}>
-            <button className={`${styles.navButton} ${styles.active}`}> 
+            <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
               <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
               Play Game
             </button>

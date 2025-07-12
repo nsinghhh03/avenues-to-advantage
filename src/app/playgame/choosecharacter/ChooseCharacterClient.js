@@ -86,7 +86,7 @@ export default function ChooseCharacterClient() {
         <h1 className={styles.title}>Play Game</h1>
       </header>
       <nav className={styles.navbar}>
-        <button className={`${styles.navButton} ${styles.active}`}> 
+        <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>

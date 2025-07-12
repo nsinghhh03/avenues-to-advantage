@@ -83,7 +83,7 @@ export default function ChooseCharacterPageContent() {
       for (let i = 0; i < numSlices; i++) {
         const color = i % 2 === 0 ? 'purple' : 'green';
         if (color !== player1Color) oppositeColorSlices.push(i);
-      }
+      } 
 
       const randomOppositeSlice = oppositeColorSlices[Math.floor(Math.random() * oppositeColorSlices.length)];
       const targetAngle = 360 - (randomOppositeSlice * sliceAngle) - (sliceAngle / 2);
@@ -147,7 +147,7 @@ export default function ChooseCharacterPageContent() {
         <h1 className={styles.title}>Play Game</h1>
       </header>
       <nav className={styles.navbar}>
-        <button className={`${styles.navButton} ${styles.active}`}> 
+        <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
