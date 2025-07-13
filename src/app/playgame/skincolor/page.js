@@ -58,7 +58,7 @@ export default function SkinColorPage() {
               <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
               Play Game
             </button>
-            <button className={`${styles.navButton} ${styles.instructions}`} onClick={() => setShowInstructions(true)}> 
+            <button className={`${styles.navButton} ${styles.instructions} ${styles.dimmed}`} onClick={() => setShowInstructions(true)}> 
               <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
               Instructions
             </button>

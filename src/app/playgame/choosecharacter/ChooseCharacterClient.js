@@ -137,7 +137,7 @@ export default function ChooseCharacterClient() {
             {greenCharacters.map((char, idx) => (
               <div
                 key={idx}
-                className={`${styles.character} ${selectedGreen !== null && selectedGreen !== idx ? styles.dimmed : ""} ${selectedGreen === idx ? styles.selected : ""}`}
+                className={`${styles.character} ${selectedGreen !== null && selectedGreen !== idx ? styles.visuallyDimmed : ""} ${selectedGreen === idx ? styles.selected : ""}`}
                 onClick={() => setSelectedGreen(idx)}
               >
                 <Image src={char.src} alt={char.alt} width={111} height={111} />
@@ -156,7 +156,7 @@ export default function ChooseCharacterClient() {
             {purpleCharacters.map((char, idx) => (
               <div
                 key={idx}
-                className={`${styles.character} ${selectedPurple !== null && selectedPurple !== idx ? styles.dimmed : ""} ${selectedPurple === idx ? styles.selected : ""}`}
+                className={`${styles.character} ${selectedPurple !== null && selectedPurple !== idx ? styles.visuallyDimmed : ""} ${selectedPurple === idx ? styles.selected : ""}`}
                 onClick={() => setSelectedPurple(idx)}
               >
                 <Image src={char.src} alt={char.alt} width={111} height={111} />

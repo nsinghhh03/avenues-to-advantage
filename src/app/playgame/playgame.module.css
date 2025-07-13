@@ -157,13 +157,22 @@
   transition: opacity 0.3s, box-shadow 0.3s;
 }
 .dimmed {
-  opacity: 0.4;
+  opacity: 0.45;
   filter: grayscale(60%);
+  pointer-events: none;
+  cursor: not-allowed !important;
+  transition: opacity 0.2s, filter 0.2s;
 }
 .selected {
   border: 3px solid #ffd166;
   box-shadow: 0 0 12px #ffd166;
   opacity: 1;
+}
+
+.visuallyDimmed {
+  opacity: 0.45;
+  filter: grayscale(60%);
+  transition: opacity 0.2s, filter 0.2s;
 }
 
 @media (max-width: 600px) {
