@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
 import InstructionsModal from "./InstructionsModal";  
 
+
 export default function ChooseCharacterClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -66,7 +67,22 @@ export default function ChooseCharacterClient() {
   const [showInstructions, setShowInstructions] = useState(false);
 
   if (!player1 || !player2) {
-    return <div>Loading...</div>;
+   
+    return (
+      <div className={styles.chooseCharacterFallbackPage}>
+        <main className={styles.chooseCharacterFallbackMain}>
+          <div style={{
+            fontSize: '1.2rem',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            marginBottom: '2rem'
+          }}>
+            Spin The Wheel Before Proceeding!
+            <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>
+          </div>
+        </main>
+      </div>
+    );
   }
 
   // Robust cleanColor function
@@ -82,7 +98,7 @@ export default function ChooseCharacterClient() {
     <div className={styles.page} style={{background: '#e9e6fa'}}>
       {/* Header and nav ... (unchanged) ... */}
       <header className={styles.header}>
-        <button className={styles.backButton} aria-label="Back" onClick={() => router.back()}>←</button>
+        <button className={styles.headerBackButton} aria-label="Back" onClick={() => router.back()}>←</button>
         <h1 className={styles.title}>Play Game</h1>
       </header>
       <nav className={styles.navbar}>

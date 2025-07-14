@@ -36,7 +36,7 @@ export default function PlayGame() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <button className={styles.backButton} aria-label="Back" onClick={() => router.push("/")}>←</button>
+        <button className={styles.headerBackButton} aria-label="Back" onClick={() => router.push("/")}>←</button>
         <h1 className={styles.title}>Play Game</h1>
       </header>
       <nav className={styles.navbar}>
@@ -44,7 +44,7 @@ export default function PlayGame() {
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button className={`${styles.navButton} ${styles.instructions} ${styles.dimmed}`}> 
+        <button className={`${styles.navButton} ${styles.instructions} `}> 
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>

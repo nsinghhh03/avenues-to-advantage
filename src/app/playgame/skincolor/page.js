@@ -50,7 +50,7 @@ export default function SkinColorPage() {
         >
           {/* Header and nav */}
           <header className={styles.header}>
-            <button className={styles.backButton} aria-label="Back" onClick={() => router.back()}>←</button>
+            <button className={styles.headerBackButton} aria-label="Back" onClick={() => router.back()}>←</button>
             <h1 style={{ fontSize: '1.6rem', color: '#222', fontWeight: 'bold', fontFamily: "'Space Grotesk', Arial, sans-serif", margin: 0 }}>Play Game</h1>
           </header>
           <nav className={styles.navbar}>
@@ -58,7 +58,7 @@ export default function SkinColorPage() {
               <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
               Play Game
             </button>
-            <button className={`${styles.navButton} ${styles.instructions} ${styles.dimmed}`} onClick={() => setShowInstructions(true)}> 
+            <button className={`${styles.navButton} ${styles.instructions} `} onClick={() => setShowInstructions(true)}> 
               <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
               Instructions
             </button>
