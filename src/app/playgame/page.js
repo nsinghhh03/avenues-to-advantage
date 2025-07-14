@@ -3,8 +3,10 @@ import styles from './playgame.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
+import InstructionsModal from "./choosecharacter/InstructionsModal"; // adjust path as needed
 
 export default function PlayGame() {
+  const [showInstructions, setShowInstructions] = useState(false);
   
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
@@ -44,7 +46,10 @@ export default function PlayGame() {
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button className={`${styles.navButton} ${styles.instructions} `}> 
+        <button
+          className={`${styles.navButton} ${styles.instructions}`}
+          onClick={() => setShowInstructions(true)}
+        >
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>
@@ -87,6 +92,9 @@ export default function PlayGame() {
         </div> 
         <button className={styles.continueButton} onClick={() => router.push("/playgame/spinner")}>Continue</button>
       </main>
+      {showInstructions && (
+        <InstructionsModal onClose={() => setShowInstructions(false)} />
+      )}
     </div>
   );
 } 

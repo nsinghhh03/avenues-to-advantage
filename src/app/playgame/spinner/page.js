@@ -4,8 +4,10 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
+import InstructionsModal from '../choosecharacter/InstructionsModal';
 
 export default function ChooseCharacterPageContent() {
+  const [showInstructions, setShowInstructions] = useState(false);
   // Navigation and audio state
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
@@ -151,7 +153,7 @@ export default function ChooseCharacterPageContent() {
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button className={`${styles.navButton} ${styles.instructions} `}> 
+        <button className={`${styles.navButton} ${styles.instructions} `} onClick= {() => setShowInstructions(true)}> 
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>
@@ -216,6 +218,9 @@ export default function ChooseCharacterPageContent() {
           Continue
         </button>
       </main>
+      {showInstructions && (
+        <InstructionsModal onClose={() => setShowInstructions(false)} />
+      )}
     </div>
   );
 }
