@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
 import InstructionsModal from "./InstructionsModal";  
-
+import welcomeStyles from '../../welcome.module.css'; // adjust path as needed
 
 export default function ChooseCharacterClient() {
   const router = useRouter();

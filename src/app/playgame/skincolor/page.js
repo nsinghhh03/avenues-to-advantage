@@ -23,7 +23,7 @@ export default function SkinColorPage() {
     if (Date.now() - lastClickTime.current < 10000) return;
     lastClickTime.current = Date.now();
     setIsMuted(false);
-    const audio = new Audio('/melanin.mp3');
+    const audio = new Audio('/melanin_fast.mp3');
     audioRef.current = audio;
     audio.play().catch(() => {});
     audio.onended = () => setIsMuted(true);
@@ -112,7 +112,9 @@ export default function SkinColorPage() {
             <Image src="/kids.png" alt="Two children and a sun" width={500} height={375} style={{ marginBottom: 12 }} />
           </div>
           {/* Continue button */}
-          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame')}>Continue</button>
+          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame/nextpage')}>
+            Continue
+          </button>
         </main>
       </div>
       {/* Instructions Modal rendered outside blurred area */}

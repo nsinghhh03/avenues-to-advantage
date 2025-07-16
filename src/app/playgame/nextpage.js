@@ -1,9 +1,9 @@
 "use client";
-import styles from '../playgame.module.css';
+import styles from './playgame.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import InstructionsModal from "../choosecharacter/InstructionsModal";
+import InstructionsModal from "./choosecharacter/InstructionsModal";
 
 export default function NextPage() {
   const router = useRouter();
@@ -68,11 +68,11 @@ export default function NextPage() {
         </button>
       </nav>
       <main className={styles.main}>
-        <div className={styles.descriptionBox} style={{maxWidth: 830, position: 'relative', paddingTop: 32, paddingRight: 40}}>
+        <div className={styles.descriptionBox} style={{maxWidth: 700, marginBottom: 32, position: 'relative'}}>
           <button
             className={styles.speakerIcon}
             onClick={handleSpeak}
-            style={{background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'pointer', position: 'absolute', right: 18, top: 8}}
+            style={{background: 'none', border: 'none', padding: 0, marginRight: 10, cursor: 'pointer', position: 'absolute', right: 18, top: 18}}
             aria-label="Play audio"
           >
             <Image
@@ -82,11 +82,17 @@ export default function NextPage() {
               height={24}
             />
           </button>
-          <p style={{margin: 0, fontWeight: 'bold'}}>
-            A long time ago, people in power decided to use these skin color labels to sort people into a made up idea called race. Over time, people started treating these race labels as really important, even though they were made up. It’s important to mention that skin color or race can’t tell you about what people are like on the inside, like their favorite books or what they know. To learn these things about different people, you need to ask! Now that you have learned about your characters, click <span style={{color: '#D3D730', fontWeight: 700}}>Instructions</span> on the top to review the rules of the game. Then, click <span style={{color: '#ffd166', fontWeight: 700}}>Continue</span> to begin!
+          <p style={{fontSize: '1.05rem', textAlign: 'center'}}>
+            {/* Add your page's main text here */}
+            This is the next page after skincolor. Add your content here!
           </p>
         </div>
-        <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '190px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame/maingame')}>
+        {/* Image container placeholder */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '32px 0 8px 0', minHeight: 200, minWidth: 300, background: '#fff', borderRadius: 12, boxShadow: '0 3px 0 #222', border: '2px solid #222', justifyContent: 'center' }}>
+          {/* Replace the src below with your chosen image when ready */}
+          <Image src="/file.svg" alt="Placeholder" width={200} height={150} style={{ margin: 24 }} />
+        </div>
+        <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame/anotherpage')}>
           Continue
         </button>
       </main>
