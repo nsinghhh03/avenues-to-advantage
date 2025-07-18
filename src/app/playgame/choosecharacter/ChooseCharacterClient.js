@@ -94,6 +94,31 @@ export default function ChooseCharacterClient() {
     return '';
   };
 
+  const handleContinue = () => {
+    // Determine which player is green/purple and which character was selected
+    const player1Color = cleanColor(player1).toLowerCase();
+    const player2Color = cleanColor(player2).toLowerCase();
+
+    let player1Img = "";
+    let player2Img = "";
+
+    if (player1Color === "green") {
+      player1Img = selectedGreen !== null ? greenCharacters[selectedGreen].src.replace("/", "") : "";
+    } else if (player1Color === "purple") {
+      player1Img = selectedPurple !== null ? purpleCharacters[selectedPurple].src.replace("/", "") : "";
+    }
+
+    if (player2Color === "green") {
+      player2Img = selectedGreen !== null ? greenCharacters[selectedGreen].src.replace("/", "") : "";
+    } else if (player2Color === "purple") {
+      player2Img = selectedPurple !== null ? purpleCharacters[selectedPurple].src.replace("/", "") : "";
+    }
+
+    router.push(
+      `/playgame/maingame?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`
+    );
+  };
+
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
       {/* Header and nav ... (unchanged) ... */}
@@ -184,7 +209,7 @@ export default function ChooseCharacterClient() {
         <button
           className={styles.continueButton}
           style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', marginTop: 32}}
-          onClick={() => router.push('/playgame/skincolor')}
+          onClick={handleContinue}
         >
           Continue
         </button>

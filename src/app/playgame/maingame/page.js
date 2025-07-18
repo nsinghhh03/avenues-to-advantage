@@ -9,28 +9,33 @@ export default function MainGamePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showInstructions, setShowInstructions] = useState(false);
-  
-  // Get player images from URL parameters
-  const player1Img = searchParams.get('player1') || "/green_player_1.png";
-  const player2Img = searchParams.get('player2') || "/purple_player_1.png";
+  const [revealedCard, setRevealedCard] = useState(null);
 
-  // Placeholder: card image filenames
-  const player1Cards = [
-    { src: "/school_card_placeholder.png", alt: "School Card" },
-    { src: "/career_card_placeholder.png", alt: "Career Card" },
-    { src: "/health_card_placeholder.png", alt: "Health Card" },
-    { src: "/wealth_card_placeholder.png", alt: "Wealth Card" },
-    { src: "/community_celebration_card_placeholder.png", alt: "Community Celebration Card" },
+  // Read params
+  const player1Img = searchParams.get('player1Img') ? `/${searchParams.get('player1Img')}` : "/green_player_1.png";
+  const player2Img = searchParams.get('player2Img') ? `/${searchParams.get('player2Img')}` : "/purple_player_1.png";
+  const player1Color = searchParams.get('player1Color') || "green";
+  const player2Color = searchParams.get('player2Color') || "purple";
+
+  // Card sets
+  const purpleCards = [
+    { front: "/purple-career.png", back: "/purplecareer.png" },
+    { front: "/purple-community.png", back: "/purple-comm-f1.png" },
+    { front: "/purple-health.png", back: "/purple-health-f1.png" },
+    { front: "/purple-school.png", back: "/purple-school-f1.png" },
+    { front: "/purple-wealth.png", back: "/purple-wealth-f1.png" },
   ];
-  const player2Cards = [
-    { src: "/school_card_placeholder2.png", alt: "School Card" },
-    { src: "/career_card_placeholder2.png", alt: "Career Card" },
-    { src: "/health_card_placeholder2.png", alt: "Health Card" },
-    { src: "/wealth_card_placeholder2.png", alt: "Wealth Card" },
-    { src: "/community_celebration_card_placeholder2.png", alt: "Community Celebration Card" },
+  const greenCards = [
+    { front: "/green-career.png", back: "/green-career-f1.png" },
+    { front: "/green-comm.png", back: "/green-comm-f1.png" },
+    { front: "/green-health.png", back: "/green-health-f1.png" },
+    { front: "/green-school.png", back: "/green-school-f1.png" },
+    { front: "/green-wealth.png", back: "/green-wealth-f1.png" },
   ];
-  // Placeholder: revealed card
-  const revealedCard = { label: "SCHOOL", text: "Your school doesn't have enough money, so you have to share textbooks with friends.\nSkip your next turn.", color: "#ffe066" };
+
+  // Pick correct card set for each player
+  const player1Cards = player1Color === "green" ? greenCards : purpleCards;
+  const player2Cards = player2Color === "green" ? greenCards : purpleCards;
 
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
@@ -61,21 +66,66 @@ export default function MainGamePage() {
           {/* Player 1 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
             <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8}}>Player 1</div>
-            <div style={{border: '3px solid #7ed957', borderRadius: 12, padding: 4, marginBottom: 12}}>
+            <div style={{border: player1Color === 'green' ? '3px solid #7ed957' : '3px solid #b39ddb', borderRadius: 12, padding: 4, marginBottom: 12}}>
               <Image src={player1Img} alt="Player 1" width={90} height={90} />
             </div>
-            <div style={{display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginTop: 8}}>
-              {player1Cards.map((card, i) => (
-                <Image key={i} src={card.src} alt={card.alt} width={70} height={48} style={{borderRadius: 8, boxShadow: '0 2px 0 #222', border: '2px solid #222', background: '#fff'}} />
-              ))}
+            <div style={{display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', marginTop: 8}}>
+              {/* Top row - 3 cards */}
+              <div style={{display: 'flex', gap: 16}}>
+                {player1Cards.slice(0, 3).map((card, i) => (
+                  <Image
+                    key={i}
+                    src={card.front}
+                    alt={`Card ${i+1}`}
+                    width={83}
+                    height={107}
+                    style={{
+                      cursor: 'pointer',
+                      borderRadius: '14px',
+                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                      border: '2px solid #222',
+                      transition: 'transform 0.15s, box-shadow 0.15s',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={() => setRevealedCard(card.back)}
+                  />
+                ))}
+              </div>
+              {/* Bottom row - 2 cards */}
+              <div style={{display: 'flex', gap: 16}}>
+                {player1Cards.slice(3, 5).map((card, i) => (
+                  <Image
+                    key={i + 3}
+                    src={card.front}
+                    alt={`Card ${i+4}`}
+                    width={83}
+                    height={107}
+                    style={{
+                      cursor: 'pointer',
+                      borderRadius: '14px',
+                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                      border: '2px solid #222',
+                      transition: 'transform 0.15s, box-shadow 0.15s',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={() => setRevealedCard(card.back)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           {/* Center revealed card */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 220}}>
-            <div style={{background: revealedCard.color, borderRadius: 12, boxShadow: '0 3px 0 #222', border: '2px solid #222', width: 180, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 20, marginBottom: 8, padding: 12}}>
-              <div style={{fontWeight: 700, fontSize: 20, marginBottom: 8}}>{revealedCard.label}</div>
-              <div style={{fontWeight: 400, fontSize: 15, whiteSpace: 'pre-line'}}>{revealedCard.text}</div>
-            </div>
+            {revealedCard ? (
+              <Image src={revealedCard} alt="Revealed Card" width={180} height={240} style={{borderRadius: 12, boxShadow: '0 3px 0 #222', border: '2px solid #222', marginBottom: 8, background: '#fff'}} />
+            ) : (
+              <div style={{background: '#ffe066', borderRadius: 12, boxShadow: '0 3px 0 #222', border: '2px solid #222', width: 180, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 20, marginBottom: 8, padding: 12}}>
+                
+                <div style={{fontWeight: 400, fontSize: 11, whiteSpace: 'pre-line', fontWeight: 1000}}>Click a card to reveal it.</div>
+              </div>
+            )}
             {/* Down arrow */}
             <div style={{fontSize: 32, margin: '8px 0'}}>&#8595;</div>
             <button style={{background: '#CCE5E5', color: '#222', border: '2px solid #222', borderRadius: 18, fontWeight: 700, fontSize: 18, padding: '8px 28px', boxShadow: '0 2px 0 #222', cursor: 'pointer', marginTop: 4}}>Learn More</button>
@@ -83,13 +133,54 @@ export default function MainGamePage() {
           {/* Player 2 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
             <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8}}>Player 2</div>
-            <div style={{border: '3px solid #b39ddb', borderRadius: 12, padding: 4, marginBottom: 12}}>
+            <div style={{border: player2Color === 'green' ? '3px solid #7ed957' : '3px solid #b39ddb', borderRadius: 12, padding: 4, marginBottom: 12}}>
               <Image src={player2Img} alt="Player 2" width={90} height={90} />
             </div>
-            <div style={{display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginTop: 8}}>
-              {player2Cards.map((card, i) => (
-                <Image key={i} src={card.src} alt={card.alt} width={70} height={48} style={{borderRadius: 8, boxShadow: '0 2px 0 #222', border: '2px solid #222', background: '#fff'}} />
-              ))}
+            <div style={{display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', marginTop: 8}}>
+              {/* Top row - 3 cards */}
+              <div style={{display: 'flex', gap: 16}}>
+                {player2Cards.slice(0, 3).map((card, i) => (
+                  <Image
+                    key={i}
+                    src={card.front}
+                    alt={`Card ${i+1}`}
+                    width={83}
+                    height={107}
+                    style={{
+                      cursor: 'pointer',
+                      borderRadius: '14px',
+                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                      border: '2px solid #222',
+                      transition: 'transform 0.15s, box-shadow 0.15s',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={() => setRevealedCard(card.back)}
+                  />
+                ))}
+              </div>
+              {/* Bottom row - 2 cards */}
+              <div style={{display: 'flex', gap: 16}}>
+                {player2Cards.slice(3, 5).map((card, i) => (
+                  <Image
+                    key={i + 3}
+                    src={card.front}
+                    alt={`Card ${i+4}`}
+                    width={83}
+                    height={107}
+                    style={{
+                      cursor: 'pointer',
+                      borderRadius: '14px',
+                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                      border: '2px solid #222',
+                      transition: 'transform 0.15s, box-shadow 0.15s',
+                    }}
+                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                    onClick={() => setRevealedCard(card.back)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
