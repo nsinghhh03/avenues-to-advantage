@@ -115,7 +115,7 @@ export default function ChooseCharacterClient() {
     }
 
     router.push(
-      `/playgame/maingame?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`
+      `/playgame/skincolor?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`
     );
   };
 

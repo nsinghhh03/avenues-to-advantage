@@ -1,12 +1,17 @@
 "use client";
 import styles from '../playgame.module.css';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
 import InstructionsModal from "./InstructionsModal";
 
 export default function SkinColorPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const player1Img = searchParams.get('player1Img');
+  const player1Color = searchParams.get('player1Color');
+  const player2Img = searchParams.get('player2Img');
+  const player2Color = searchParams.get('player2Color');
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
@@ -112,7 +117,7 @@ export default function SkinColorPage() {
             <Image src="/kids.png" alt="Two children and a sun" width={500} height={375} style={{ marginBottom: 12 }} />
           </div>
           {/* Continue button */}
-          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame/maingame')}>
+          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push(`/playgame/nextpage?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
             Continue
           </button>
         </main>
