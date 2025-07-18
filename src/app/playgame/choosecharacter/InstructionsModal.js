@@ -46,7 +46,7 @@ export default function InstructionsModal({ onClose }) {
           height={370}
           style={{
             display: 'block',
-            margin: '0.25rem auto 0 auto',
+            margin: '0.25rem auto 0 auto', 
             borderRadius: 10,
             boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
             maxWidth: '90%',

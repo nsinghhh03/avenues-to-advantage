@@ -87,11 +87,13 @@ export default function NextPage() {
               height={24}
             />
           </button>
-          <p style={{margin: 0, fontWeight: 'bold'}}>
+          <p style={{margin: 0, fontWeight: 'bold', fontSize: 16, whiteSpace: 'pre-line'}}>
             A long time ago, people in power decided to use these skin color labels to sort people into a made up idea called race. Over time, people started treating these race labels as really important, even though they were made up. It’s important to mention that skin color or race can’t tell you about what people are like on the inside, like their favorite books or what they know. To learn these things about different people, you need to ask! Now that you have learned about your characters, click <span style={{color: '#D3D730', fontWeight: 700}}>Instructions</span> on the top to review the rules of the game. Then, click <span style={{color: '#ffd166', fontWeight: 700}}>Continue</span> to begin!
           </p>
+          
         </div>
-        <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '190px auto 0 auto', display: 'block'}} onClick={() => router.push(`/playgame/maingame?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
+        <Image src ="/rules-race.png" alt="race rules" width={240} height={220} style={{ margin: 24, position: 'absolute', top: 310, left: 534.5}} />
+        <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '190px auto 0 auto', display: 'block',  marginTop: 210 }} onClick={() => router.push(`/playgame/maingame?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
           Continue
         </button>
       </main>
