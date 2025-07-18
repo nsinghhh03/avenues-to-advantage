@@ -112,7 +112,7 @@ export default function SkinColorPage() {
             <Image src="/kids.png" alt="Two children and a sun" width={500} height={375} style={{ marginBottom: 12 }} />
           </div>
           {/* Continue button */}
-          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame/nextpage')}>
+          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push('/playgame/maingame')}>
             Continue
           </button>
         </main>
