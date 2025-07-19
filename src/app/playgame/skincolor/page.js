@@ -2,10 +2,10 @@
 import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, Suspense } from 'react';
 import InstructionsModal from "./InstructionsModal";
 
-export default function SkinColorPage() {
+function SkinColorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const player1Img = searchParams.get('player1Img');
@@ -102,7 +102,7 @@ export default function SkinColorPage() {
             <p style={{margin: 0}}>
               <span style={{fontWeight: 'bold'}}>
                 Your characters have different skin colors! Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900' }}>melanin</span>.
-              </span> If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. Your character has dark skin, so we might say that your character is Black. My character has lighter skin, so we might say my character is White. Sometimes we also say ‘people of color’ to talk about all the groups of people who aren’t white.”
+              </span> If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. Your character has dark skin, so we might say that your character is Black. My character has lighter skin, so we might say my character is White. Sometimes we also say 'people of color' to talk about all the groups of people who aren't white."
             </p>
           </div>
           {/* Add hover effect for the description box */}
@@ -138,5 +138,13 @@ export default function SkinColorPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SkinColorPage() {
+  return (
+    <Suspense fallback={<div style={{color: '#222', fontSize: 24, fontWeight: 700, textAlign: 'center', marginTop: 100}}>An error occurred. Please Try again.</div>}>
+      <SkinColorContent />
+    </Suspense>
   );
 } 
