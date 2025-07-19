@@ -12,25 +12,25 @@ export default function MainGamePage() {
   const [revealedCard, setRevealedCard] = useState(null);
 
   // Read params
-  const player1Img = searchParams.get('player1Img') ? `/${searchParams.get('player1Img')}` : "/green_player_1.png";
-  const player2Img = searchParams.get('player2Img') ? `/${searchParams.get('player2Img')}` : "/purple_player_1.png";
+  const player1Img = searchParams.get('player1Img') ? `${searchParams.get('player1Img')}` : "/green_player_1.png";
+  const player2Img = searchParams.get('player2Img') ? `${searchParams.get('player2Img')}` : "/purple_player_1.png";
   const player1Color = searchParams.get('player1Color') || "green";
   const player2Color = searchParams.get('player2Color') || "purple";
 
   // Card sets
   const purpleCards = [
-    { front: "/purple-career.png", back: "/purplecareer.png" },
-    { front: "/purple-community.png", back: "/purple-comm-f1.png" },
-    { front: "/purple-health.png", back: "/purple-health-f1.png" },
-    { front: "/purple-school.png", back: "/purple-school-f1.png" },
-    { front: "/purple-wealth.png", back: "/purple-wealth-f1.png" },
+    { front: "/equal-career.png", back: "/equal-career-f1.png" },
+    { front: "/equal-comm.png", back: "/equal-comm-f1.png" },
+    { front: "/equal-health.png", back: "/equal-health-f1.png" },
+    { front: "/equal-school.png", back: "/equal-school-f1.png" },
+    { front: "/equal-wealth.png", back: "/equal-wealth-f1.png" },
   ];
   const greenCards = [
-    { front: "/green-career.png", back: "/green-career-f1.png" },
-    { front: "/green-comm.png", back: "/green-comm-f1.png" },
-    { front: "/green-health.png", back: "/green-health-f1.png" },
-    { front: "/green-school.png", back: "/green-school-f1.png" },
-    { front: "/green-wealth.png", back: "/green-wealth-f1.png" },
+    { front: "/equal-career.png", back: "/equal-career-f1.png" },
+    { front: "/equal-comm.png", back: "/equal-comm-f1.png" },
+    { front: "/equal-health.png", back: "/equal-health-f1.png" },
+    { front: "/equal-school.png", back: "/equal-school-f1.png" },
+    { front: "/equal-wealth.png", back: "/equal-wealth-f1.png" },
   ];
 
   // Pick correct card set for each player
@@ -185,8 +185,8 @@ export default function MainGamePage() {
           </div>
         </div>
         {/* Bottom yellow button */}
-        <button style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer'} } onClick={() => router.push(`/playgame/maingame2?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
-          Click here when you reach the Equality Arch!
+        <button style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer'}}>
+          Click here when you reach the Equity Arch!
         </button>
       </main>
       {showInstructions && (

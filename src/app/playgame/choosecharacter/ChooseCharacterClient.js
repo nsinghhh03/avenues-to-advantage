@@ -43,7 +43,7 @@ export default function ChooseCharacterClient() {
     const audio = new Audio('/thirdpage.mp3');
     audioRef.current = audio;
     audio.play().catch((e) => {
-      // Optionally handle play() errors here
+      // handle play() errors here
       console.warn('Audio play interrupted:', e);
     });
     audio.onended = () => setIsMuted(true);
@@ -114,9 +114,7 @@ export default function ChooseCharacterClient() {
       player2Img = selectedPurple !== null ? purpleCharacters[selectedPurple].src.replace("/", "") : "";
     }
 
-    router.push(
-      `/playgame/skincolor?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`
-    );
+    router.push(`/playgame/maingame2?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`);
   };
 
   return (
