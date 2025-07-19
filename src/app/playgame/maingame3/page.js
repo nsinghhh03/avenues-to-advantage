@@ -2,10 +2,10 @@
 import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import InstructionsModal from "../choosecharacter/InstructionsModal";
 
-export default function MainGamePage() {
+function MainGameContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showInstructions, setShowInstructions] = useState(false);
@@ -26,11 +26,11 @@ export default function MainGamePage() {
     { front: "/equity-wealth.png", back: "/equity-wealth-f1.png" },
   ];
   const greenCards = [
-    { front: "/green-career.png", back: "/green-career-f1.png" },
-    { front: "/green-comm.png", back: "/green-comm-f1.png" },
-    { front: "/green-health.png", back: "/green-health-f1.png" },
-    { front: "/green-school.png", back: "/green-school-f1.png" },
-    { front: "/green-wealth.png", back: "/green-wealth-f1.png" },
+    { front: "/equity-career.png", back: "/equity-career-f1.png" },
+    { front: "/equity-community.png", back: "/equity-comm-f1.png" },
+    { front: "/equity-health.png", back: "/equity-health-f1.png" },
+    { front: "/equity-school.png", back: "/equity-school-f1.png" },
+    { front: "/equity-wealth.png", back: "/equity-wealth-f1.png" },
   ];
 
   // Pick correct card set for each player
@@ -185,11 +185,21 @@ export default function MainGamePage() {
           </div>
         </div>
         {/* Bottom yellow button */}
-        
+        <button style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer'}}>
+          
+        </button>
       </main>
       {showInstructions && (
         <InstructionsModal onClose={() => setShowInstructions(false)} />
       )}
     </div>
+  );
+}
+
+export default function MainGamePage() {
+  return (
+    <Suspense fallback={<div style={{color: '#222', fontSize: 24, fontWeight: 700, textAlign: 'center', marginTop: 100}}>An error occurred. Please Try again.</div>}>
+      <MainGameContent />
+    </Suspense>
   );
 } 

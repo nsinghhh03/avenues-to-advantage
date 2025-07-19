@@ -2,10 +2,10 @@
 import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import InstructionsModal from "../choosecharacter/InstructionsModal";
 
-export default function MainGamePage() {
+function MainGameContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showInstructions, setShowInstructions] = useState(false);
@@ -202,5 +202,13 @@ export default function MainGamePage() {
         <InstructionsModal onClose={() => setShowInstructions(false)} />
       )}
     </div>
+  );
+}
+
+export default function MainGamePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <MainGameContent />
+    </Suspense>
   );
 } 
