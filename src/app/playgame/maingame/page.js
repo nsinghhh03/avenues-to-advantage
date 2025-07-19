@@ -185,7 +185,16 @@ export default function MainGamePage() {
           </div>
         </div>
         {/* Bottom yellow button */}
-        <button style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer'} } onClick={() => router.push(`/playgame/maingame2?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
+        <button 
+          style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer'}} 
+          onClick={() => {
+            const p1Img = player1Img || "/green_player_1.png";
+            const p2Img = player2Img || "/purple_player_1.png";
+            const p1Color = player1Color || "green";
+            const p2Color = player2Color || "purple";
+            router.push(`/playgame/maingame2?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
+          }}
+        >
           Click here when you reach the Equality Arch!
         </button>
       </main>

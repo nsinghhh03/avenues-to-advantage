@@ -114,7 +114,13 @@ export default function ChooseCharacterClient() {
       player2Img = selectedPurple !== null ? purpleCharacters[selectedPurple].src.replace("/", "") : "";
     }
 
-    router.push(`/playgame/maingame2?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`);
+    // Add default values to prevent empty strings
+    const p1Img = player1Img || "green_player_1.png";
+    const p2Img = player2Img || "purple_player_1.png";
+    const p1Color = player1Color || "green";
+    const p2Color = player2Color || "purple";
+
+    router.push(`/playgame/skincolor?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
   };
 
   return (
