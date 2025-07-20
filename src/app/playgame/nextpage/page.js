@@ -49,7 +49,7 @@ function NextPageContent() {
   };
 
   return (
-    <div className={styles.page} style={{background: '#e9e6fa'}}>
+    <div className={styles.page} style={{background: '#e9e6fa', minHeight: '100vh', display: 'flex', flexDirection: 'column'}}>
       <header className={styles.header}>
         <button className={styles.headerBackButton} aria-label="Back" onClick={() => router.back()}>←</button>
         <h1 className={styles.title}>Play Game</h1>
@@ -72,27 +72,29 @@ function NextPageContent() {
           View Cards
         </button>
       </nav>
-      <main className={styles.main}>
-        <div className={styles.descriptionBox} style={{maxWidth: 830, position: 'relative', paddingTop: 32, paddingRight: 40}}>
-          <button
-            className={styles.speakerIcon}
-            onClick={handleSpeak}
-            style={{background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'pointer', position: 'absolute', right: 18, top: 8}}
-            aria-label="Play audio"
-          >
-            <Image
-              src={isMuted ? "/mute.png" : "/speaker-filled-audio-tool.png"}
-              alt={isMuted ? "Muted" : "Speaker"}
-              width={24}
-              height={24}
-            />
-          </button>
-          <p style={{margin: 0, fontWeight: 'bold'}}>
-            A long time ago, people in power decided to use these skin color labels to sort people into a made up idea called race. Over time, people started treating these race labels as really important, even though they were made up. It's important to mention that skin color or race can't tell you about what people are like on the inside, like their favorite books or what they know. To learn these things about different people, you need to ask! Now that you have learned about your characters, click <span style={{color: '#D3D730', fontWeight: 700}}>Instructions</span> on the top to review the rules of the game. Then, click <span style={{color: '#ffd166', fontWeight: 700}}>Continue</span> to begin!
-          </p>
+      <main className={styles.main} style={{flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', paddingBottom: '40px'}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px'}}>
+          <div className={styles.descriptionBox} style={{maxWidth: 830, position: 'relative', paddingTop: 32, paddingRight: 40, marginBottom: '24px'}}>
+            <button
+              className={styles.speakerIcon}
+              onClick={handleSpeak}
+              style={{background: 'none', border: 'none', padding: 0, margin: 0, cursor: 'pointer', position: 'absolute', right: 18, top: 8}}
+              aria-label="Play audio"
+            >
+              <Image
+                src={isMuted ? "/mute.png" : "/speaker-filled-audio-tool.png"}
+                alt={isMuted ? "Muted" : "Speaker"}
+                width={24}
+                height={24}
+              />
+            </button>
+            <p style={{margin: 0, fontWeight: 'bold'}}>
+              A long time ago, people in power decided to use these skin color labels to sort people into a made up idea called race. Over time, people started treating these race labels as really important, even though they were made up. It's important to mention that skin color or race can't tell you about what people are like on the inside, like their favorite books or what they know. To learn these things about different people, you need to ask! Now that you have learned about your characters, click <span style={{color: '#D3D730', fontWeight: 700}}>Instructions</span> on the top to review the rules of the game. Then, click <span style={{color: '#ffd166', fontWeight: 700}}>Continue</span> to begin!
+            </p>
+          </div>
+          <Image src="/rules-race.png" alt="race rules" width={270} height={230} style={{margin: '0 auto'}} />
         </div>
-        <Image src ="/rules-race.png" alt="race rules" width={240} height={200} style={{ margin: 24, position: 'absolute', top: 333, left: 528.5}} />
-        <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '190px auto 0 auto', display: 'block'}} onClick={() => router.push(`/playgame/maingame?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
+        <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '40px auto 0 auto', display: 'block'}} onClick={() => router.push(`/playgame/maingame?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
           Continue
         </button>
       </main>
