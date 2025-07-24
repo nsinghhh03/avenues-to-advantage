@@ -35,9 +35,48 @@ export default function InstructionsModal({ onClose }) {
       <div className={styles.modal} style={{ position: 'relative' }}>
         <button className={styles.closeButton} onClick={onClose}>×</button>
         <div className={styles.textAndAudio}>
-          <p style={{textAlign: 'center', fontWeight: 600, fontSize: '1.02rem', marginBottom: 16}}>
-            The goal of the game is to be the first player to reach the finish line! Each player rolls the dice when it’s their turn. The number you roll tells you how many spaces to move on the board. When you land on a space, pick a card that matches the color of the space you landed on. Because you are playing a Black/White character, you will pick one of the purple/green cards. Each card tells you what happens next! The cards talk about different parts of life, like money, health, school, jobs, and community. Follow what the card says to do.
-          </p>
+          <div style={{
+            textAlign: 'center',
+            fontWeight: 700,
+            fontSize: '1rem',
+            margin: '0 0 1rem 0',
+            letterSpacing: '-0.5px',
+            width: '100%'
+          }}>
+            The goal of the game is to be the first player to reach the finish line!
+          </div>
+          <ol style={{
+            textAlign: 'left',
+            margin: '0 auto',
+            maxWidth: 340,
+            fontWeight: 400,
+            fontSize: '0.85rem',
+            lineHeight: 1.5,
+            paddingLeft: 20
+          }}>
+            <li style={{ marginBottom: 12 }}>
+              <span style={{ fontWeight: 600 }}>On your turn, roll the dice.</span>
+              <br />
+              The number you roll tells you how many spaces to move forward on the board.
+            </li>
+            <li style={{ marginBottom: 12 }}>
+              <span style={{ fontWeight: 600 }}>
+                When you land on a space, pick a card that matches the color of the space you landed on.
+              </span>
+              <br />
+              If you are playing as a <b>Black character</b>, pick from the deck with a <span style={{ color: 'purple' }}>PURPLE</span> background.<br />
+              If you are playing as a <b>White character</b>, pick from the deck with a <span style={{ color: 'green' }}>GREEN</span> background.
+            </li>
+            <li style={{ marginBottom: 12 }}>
+              <span style={{ fontWeight: 600 }}>Each card tells you what happens next!</span>
+              <br />
+              The cards include life events about things like money, health, school, jobs, and community.<br />
+              Sometimes the cards will help you move ahead. Other times they might make you move back or lose a turn.
+            </li>
+            <li>
+              <span style={{ fontWeight: 600 }}>Follow what the card says to do. Then it’s the next player’s turn!</span>
+            </li>
+          </ol>
         </div>
         <Image
           src="/cardss.png"
