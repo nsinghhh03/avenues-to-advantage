@@ -181,7 +181,7 @@ export default function ChooseCharacterPageContent() {
               height={24}
             />
           </button>
-          <p style={{fontSize: '1.05rem'}}>
+          <p style={{fontSize: '1.05rem', color: 'black'}}>
             First, let's pick which characters we are going to play in the game. Decide who will be Player 1 and Player 2. Then, click the spinners below to decide which character you'll play. If the spinner lands on a purple space, you get to pick a <span style={{color: '#a259d9', fontWeight: 600}}>PURPLE</span> character. If the spinner lands on a green space, you get to pick one of the <span style={{color: '#3bb273', fontWeight: 600}}>GREEN</span> characters.
           </p>
         </div>

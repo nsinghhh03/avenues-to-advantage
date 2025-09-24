@@ -41,7 +41,8 @@ export default function InstructionsModal({ onClose }) {
             fontSize: '1rem',
             margin: '0 0 1rem 0',
             letterSpacing: '-0.5px',
-            width: '100%'
+            width: '100%',
+            color : 'black'
           }}>
             The goal of the game is to be the first player to reach the finish line!
           </div>

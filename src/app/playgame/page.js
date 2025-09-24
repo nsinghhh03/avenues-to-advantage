@@ -76,7 +76,9 @@ export default function PlayGame() {
               height={24}
             />
           </button>
-          <p>
+          
+          <p /*black text color for better readability*/  style={{ color: 'black' }}> 
+        
             Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.
           </p>
         </div>

@@ -67,7 +67,7 @@ function MainGameContent() {
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: 64, marginTop: 24, marginBottom: 32}}>
           {/* Player 1 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
-            <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8}}>Player 1</div>
+            <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8, color: 'black'}}>Player 1</div>
             <div style={{border: player1Color === 'green' ? '3px solid #7ed957' : '3px solid #b39ddb', borderRadius: 12, padding: 4, marginBottom: 12}}>
               <Image src={player1Img} alt="Player 1" width={90} height={90} />
             </div>
@@ -134,7 +134,7 @@ function MainGameContent() {
           </div>
           {/* Player 2 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
-            <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8}}>Player 2</div>
+            <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8, color : 'black'}}>Player 2</div>
             <div style={{border: player2Color === 'green' ? '3px solid #7ed957' : '3px solid #b39ddb', borderRadius: 12, padding: 4, marginBottom: 12}}>
               <Image src={player2Img} alt="Player 2" width={90} height={90} />
             </div>

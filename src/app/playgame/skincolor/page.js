@@ -99,8 +99,8 @@ function SkinColorContent() {
                 height={24}
               />
             </button>
-            <p style={{margin: 0}}>
-              <span style={{fontWeight: 'bold'}}>
+            <p style={{margin: 0, color: 'black'}}>
+              <span style={{fontWeight: 'bold', }}>
                 Your characters have different skin colors! Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900' }}>melanin</span>.
               </span> If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. One player has dark skin, so we might say that player is Black. The other player has lighter skin, so we might say that player is White. Sometimes we also say 'people of color' to talk about all the groups of people who aren't white Sometimes we also say 'people of color' to talk about all the groups of people who aren't white."
             </p>

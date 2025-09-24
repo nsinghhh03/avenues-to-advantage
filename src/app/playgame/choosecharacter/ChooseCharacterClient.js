@@ -164,7 +164,7 @@ export default function ChooseCharacterClient() {
               height={24}
             />
           </button>
-          <p style={{fontSize: '1.05rem'}}>
+          <p style={{fontSize: '1.05rem', color: 'black'}}>
             If you landed on <span style={{color: '#A24DE2', fontWeight: 600}}>PURPLE</span>, then pick one of the characters from the <span style={{color: '#A24DE2', fontWeight: 600}}>PURPLE</span> pile below. If you landed on <span style={{color: '#00975B', fontWeight: 600}}>GREEN</span>, then pick one of the characters from the <span style={{color: '#00975B', fontWeight: 600}}>GREEN</span> pile below. Then, click <span style={{color: '#ffd166', fontWeight: 600}}>CONTINUE</span> to learn more about your characters.
           </p>
         </div>
