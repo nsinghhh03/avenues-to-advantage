@@ -224,6 +224,21 @@
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
 }
+.navButton:hover,
+.active:hover {
+padding: none !important;
+  box-shadow: none !important;
+}
+.navButton:hover,
+.instructions:hover {
+padding: none !important;
+  box-shadow: none !important;
+}
+.navButton:hover,
+.orange:hover {
+padding: none !important;
+  box-shadow: none !important;
+}
 
 
 /* Responsive Design */

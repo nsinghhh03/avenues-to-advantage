@@ -12,28 +12,46 @@ export default function PlayGame() {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const handleMouseOver = () => {
+    setIsHovered(true);
+  }
+  const handleMouseOut = () => {
+    setIsHovered(false);
+  }
 
-  const handleSpeak = async () => {
-    
-    if (Date.now() - lastClickTime.current < 10000) {
-      return;
-    }
-    lastClickTime.current = Date.now();
-    setIsMuted(false);
-    const audio = new Audio('/firstpage.mp3');
-    audioRef.current = audio;
-    audio.play();
-  };
+ const handleSpeak = () => {
+  
+  if (audioRef.current && !audioRef.current.paused) {
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0; 
+    setIsMuted(true);
+    return;
+  }
 
-  // Cleanup: stop audio when component unmounts
-  useEffect(() => {
+ 
+  if (Date.now() - lastClickTime.current < 10000) {
+    return;
+  }
+  lastClickTime.current = Date.now();
+
+  const audio = new Audio('/firstpage.mp3');
+  audioRef.current = audio;
+  setIsMuted(false);
+
+  audio.play();
+};
+useEffect(() => {
     return () => {
-      if (audioRef.current) {
+      if (audioRef.current ) {
         audioRef.current.pause();
         audioRef.current.currentTime = 0;
       }
     };
   }, []);
+
+  
 
   return (
     <div className={styles.page}>
@@ -77,7 +95,7 @@ export default function PlayGame() {
             />
           </button>
           
-          <p /*black text color for better readability*/  style={{ color: 'black' }}> 
+          <p   style={{ color: 'black' }}> 
         
             Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.
           </p>
