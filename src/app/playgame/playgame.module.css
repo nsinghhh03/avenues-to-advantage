@@ -239,7 +239,7 @@ padding: none !important;
   background: #fff;
   border-radius: 18px;
   padding: 2rem;
-  max-width: 630px;
+  max-width: 960px;
   width: 90vw;
   max-height: 90vh;      /* NEW: never taller than viewport */
   overflow-y: auto;      /* NEW: scroll if needed */
