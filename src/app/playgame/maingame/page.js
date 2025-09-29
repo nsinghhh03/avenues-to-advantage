@@ -202,8 +202,8 @@ function MainGameContent() {
             <Image 
               src="/info-icon.png" 
               alt="Info" 
-              width={40} 
-              height={40}
+              width={55} 
+              height={55}
               style={{ cursor: 'pointer' }}
               onMouseEnter={(e) => {
                 e.stopPropagation();

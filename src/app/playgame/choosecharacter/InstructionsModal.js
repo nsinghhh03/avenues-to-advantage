@@ -11,8 +11,8 @@ export default function InstructionsModal({ onClose }) {
   const image4 = "/kids-moving-marker.png";
   const image5 = "/cards-display.png";
   const imageArray = [image1, image2, image3, image4, image5];
+  const [currentImage, setCurrentImage] = useState(0);
 
- 
   useEffect(() => {
     audioRef.current = new Audio("/instructionspopup.mp3");
     audioRef.current.onended = () => setIsMuted(true);
@@ -23,6 +23,13 @@ export default function InstructionsModal({ onClose }) {
       }
     };
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % imageArray.length);
+    }, 2200); // Change image every 2.2 seconds
+    return () => clearInterval(interval);
+  }, [imageArray.length]);
 
   const handleSpeak = () => {
     if (!audioRef.current) return;
@@ -38,7 +45,6 @@ export default function InstructionsModal({ onClose }) {
   };
 
   return (
-    
     <div className={styles.overlay}>
       <div className={styles.modal} style={{ position: 'relative' }}>
         <button className={styles.closeButton} onClick={onClose}>×</button>
@@ -54,11 +60,15 @@ export default function InstructionsModal({ onClose }) {
             Follow what the card says to do. Then it’s the next player’s turn!
           </p>
         </div>
-      <div className="image-container">
-      {imageArray.map((image, index) => (
-        <img key={index} src={image} alt={`Gallery item ${index + 1}`} />
-      ))}
-    </div>
+      <div className={styles.imageContainer}>
+        <Image
+          src={imageArray[currentImage]}
+          alt={`Gallery item ${currentImage + 1}`}
+          width={320}
+          height={220}
+          style={{ objectFit: "contain", maxWidth: "320px", maxHeight: "220px" }}
+        />
+      </div>
         <button className={styles.speakerIconBottomRight} onClick={handleSpeak}>
           <Image
             src={isMuted ? "/mute.png" : "/speaker-filled-audio-tool.png"}

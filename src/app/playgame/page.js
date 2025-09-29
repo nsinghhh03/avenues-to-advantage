@@ -12,14 +12,7 @@ export default function PlayGame() {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
-  const [isHovered, setIsHovered] = useState(false);
-  
-  const handleMouseOver = () => {
-    setIsHovered(true);
-  }
-  const handleMouseOut = () => {
-    setIsHovered(false);
-  }
+
 
  const handleSpeak = () => {
   
@@ -60,6 +53,7 @@ useEffect(() => {
         <h1 className={styles.title}>Play Game</h1>
       </header>
       <nav className={styles.navbar}>
+        
         <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game

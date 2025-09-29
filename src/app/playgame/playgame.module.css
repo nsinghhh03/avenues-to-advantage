@@ -337,4 +337,11 @@ padding: none !important;
   /* No min-height or height here! */
 }
 
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 18px 0;
+}
+
 
