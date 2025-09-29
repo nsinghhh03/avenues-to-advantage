@@ -5,7 +5,14 @@ import styles from "../playgame.module.css";
 export default function InstructionsModal({ onClose }) {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(null);
+  const image1 = "/dice.png";
+  const image2 = "/gameboard.png";
+  const image3 = "/kids-rolling.png";
+  const image4 = "/kids-moving-marker.png";
+  const image5 = "/cards-display.png";
+  const imageArray = [image1, image2, image3, image4, image5];
 
+ 
   useEffect(() => {
     audioRef.current = new Audio("/instructionspopup.mp3");
     audioRef.current.onended = () => setIsMuted(true);
@@ -31,39 +38,27 @@ export default function InstructionsModal({ onClose }) {
   };
 
   return (
+    
     <div className={styles.overlay}>
       <div className={styles.modal} style={{ position: 'relative' }}>
         <button className={styles.closeButton} onClick={onClose}>×</button>
         <div className={styles.textAndAudio}>
-          <div>
+          <p style={{color:'black'}}>
             The goal of the game is to be the first player to reach the finish line!
-          </div>
-          
-            
-              <span style={{ fontWeight: 600 }}>On your turn, roll the dice.</span>
-              
-              The number you roll tells you how many spaces to move forward on the board.
-            
-            <li style={{ marginBottom: 12 }}>
-              <span style={{ fontWeight: 600 }}>
-                When you land on a space, pick a card that matches the color of the space you landed on.
-              </span>
-              
-              If you are playing as a <b>Black character</b>, pick from the deck with a <span style={{ color: 'purple' }}>PURPLE</span> background.<br />
-              If you are playing as a <b>White character</b>, pick from the deck with a <span style={{ color: 'green' }}>GREEN</span> background.
-            </li>
-            <li style={{ marginBottom: 12 }}>
-              <span style={{ fontWeight: 600 }}>Each card tells you what happens next!</span>
-              
-              The cards include life events about things like money, health, school, jobs, and community.<br />
-              Sometimes the cards will help you move ahead. Other times they might make you move back or lose a turn.
-            </li>
-            <li>
-              <span style={{ fontWeight: 600 }}>Follow what the card says to do. Then it’s the next player’s turn!</span>
-            </li>
-          
+            On your turn, roll the dice. The number you roll tells you how many spaces to move forward on the board.
+            When you land on a space, pick a card that matches the color of the space you landed on.
+            If you are playing as a <b>Black character</b>, pick from the deck with a <span style={{ color: 'purple' }}>PURPLE</span> background.
+            If you are playing as a <b>White character</b>, pick from the deck with a <span style={{ color: 'green' }}>GREEN</span> background.
+            Each card tells you what happens next! The cards include life events about things like money, health, school, jobs, and community.
+            Sometimes the cards will help you move ahead. Other times they might make you move back or lose a turn.
+            Follow what the card says to do. Then it’s the next player’s turn!
+          </p>
         </div>
-        
+      <div className="image-container">
+      {imageArray.map((image, index) => (
+        <img key={index} src={image} alt={`Gallery item ${index + 1}`} />
+      ))}
+    </div>
         <button className={styles.speakerIconBottomRight} onClick={handleSpeak}>
           <Image
             src={isMuted ? "/mute.png" : "/speaker-filled-audio-tool.png"}
@@ -75,4 +70,4 @@ export default function InstructionsModal({ onClose }) {
       </div>
     </div>
   );
-} 
+}
