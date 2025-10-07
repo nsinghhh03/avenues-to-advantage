@@ -126,9 +126,30 @@ function MainGameContent() {
                 <div style={{fontWeight: 400, fontSize: 11, whiteSpace: 'pre-line', fontWeight: 1000, color : 'black'}}>Click a card to reveal it.</div>
               </div>
             )}
-            {/* Down arrow */}
-            <div style={{fontSize: 32, margin: '8px 0'}}>&#8595;</div>
-            <button style={{background: '#CCE5E5', color: '#222', border: '2px solid #222', borderRadius: 18, fontWeight: 700, fontSize: 18, padding: '8px 28px', boxShadow: '0 2px 0 #222', cursor: 'pointer', marginTop: 4}}>Learn More</button>
+           {/* Down arrow */}
+            <div style={{fontSize: 32, margin: '8px 0'}}>&#8595; </div>
+            <button
+              style={{
+                background: '#CCE5E5',
+                color: '#222',
+                border: '2px solid #222',
+                borderRadius: 18,
+                fontWeight: 700,
+                fontSize: 18,
+                padding: '8px 28px',
+                boxShadow: '0 2px 0 #222',
+                cursor: 'pointer',
+                marginTop: 4
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 2px 0 #222';
+              }}
+            >
+              Learn More
+            </button>
           </div>
           {/* Player 2 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>

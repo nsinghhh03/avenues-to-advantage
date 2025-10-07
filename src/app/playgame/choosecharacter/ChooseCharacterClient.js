@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
 import InstructionsModal from "./InstructionsModal";  
-import welcomeStyles from '../../welcome.module.css'; // adjust path as needed
+import welcomeStyles from '../../welcome.module.css'; 
 
 export default function ChooseCharacterClient() {
   const router = useRouter();
@@ -75,7 +75,9 @@ export default function ChooseCharacterClient() {
             fontSize: '1.2rem',
             fontWeight: 'bold',
             textAlign: 'center',
-            marginBottom: '2rem'
+            marginBottom: '2rem',
+            color: '#000'
+            
           }}>
             Spin The Wheel Before Proceeding!
             <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>

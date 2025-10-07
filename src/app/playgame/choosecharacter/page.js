@@ -4,7 +4,8 @@ import ChooseCharacterClient from "./ChooseCharacterClient";
 
 export default function ChooseCharacterPage() {
   return (
-    <Suspense fallback={<div>Spin The Wheel Before Proceeding!</div>}>
+    
+    <Suspense fallback={<div style={{color : "#000"}}>Spin The Wheel Before Proceeding!</div>}>
       <ChooseCharacterClient />
     </Suspense>
   );

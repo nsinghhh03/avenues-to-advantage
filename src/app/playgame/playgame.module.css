@@ -27,6 +27,10 @@
   color: #222;
   font-weight: bold;
 }
+.headerBackButton:hover {
+  /* increase size */
+  transform: translateY(-50%) scale(1.1);
+}
 
 .title {
   font-size: 1.6rem;
@@ -171,6 +175,10 @@ padding: none !important;
   cursor: pointer;
   display: block;
   transition: background 0.2s, box-shadow 0.2s;
+}
+.backButton:hover {
+  background: #FFD966;
+  box-shadow: 1.5px 3px 0 #222;
 }
 
 .continueButton:hover {

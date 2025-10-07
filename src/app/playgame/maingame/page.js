@@ -129,8 +129,29 @@ function MainGameContent() {
               </div>
             )}
             {/* Down arrow */}
-            <div style={{fontSize: 32, margin: '8px 0'}}>&#8595;</div>
-            <button style={{background: '#CCE5E5', color: '#222', border: '2px solid #222', borderRadius: 18, fontWeight: 700, fontSize: 18, padding: '8px 28px', boxShadow: '0 2px 0 #222', cursor: 'pointer', marginTop: 4}}>Learn More</button>
+            <div style={{fontSize: 32, margin: '8px 0'}}>&#8595; </div>
+            <button
+              style={{
+                background: '#CCE5E5',
+                color: '#222',
+                border: '2px solid #222',
+                borderRadius: 18,
+                fontWeight: 700,
+                fontSize: 18,
+                padding: '8px 28px',
+                boxShadow: '0 2px 0 #222',
+                cursor: 'pointer',
+                marginTop: 4
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 2px 0 #222';
+              }}
+            >
+              Learn More
+            </button>
           </div>
           {/* Player 2 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
@@ -187,7 +208,9 @@ function MainGameContent() {
           </div>
         </div>
         {/* Bottom yellow button */}
-        <div style={{ position: 'relative', display: 'inline-block' }}>
+        <div style={{ position: 'relative', display: 'inline-block' }}
+        >
+          
           <button 
             style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px'}} 
             onClick={() => {
@@ -197,8 +220,15 @@ function MainGameContent() {
               const p2Color = player2Color || "purple";
               router.push(`/playgame/maingame2?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
             }}
+             onMouseEnter = {(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            onMouseLeave = {(e) => {
+              e.currentTarget.style.boxShadow = '3px 6px 0 #222';
+            }}
           >
             Click here when you reach the Equality Arch!
+           
             <Image 
               src="/info-icon.png" 
               alt="Info" 
@@ -208,6 +238,7 @@ function MainGameContent() {
               onMouseEnter={(e) => {
                 e.stopPropagation();
                 e.currentTarget.style.transform = 'scale(1.05)';
+                
                 setShowTooltip(true);
               }}
               onMouseLeave={(e) => {
@@ -215,8 +246,11 @@ function MainGameContent() {
                 e.currentTarget.style.transform = 'scale(1)';
                 setShowTooltip(false);
               }}
+              
             />
+            
           </button>
+          
           {showTooltip && <EqualityInfo text = "In this section of the game, the rules are going to change. Now, instead of one player having better cards, the cards will be a bit more simliar." />}
         </div>
       

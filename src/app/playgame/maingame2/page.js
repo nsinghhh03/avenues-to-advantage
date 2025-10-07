@@ -125,12 +125,34 @@ function MainGameContent() {
             ) : (
               <div style={{background: '#ffe066', borderRadius: 12, boxShadow: '0 3px 0 #222', border: '2px solid #222', width: 180, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 20, marginBottom: 8, padding: 12}}>
                 
-                <div style={{fontWeight: 400, fontSize: 11, whiteSpace: 'pre-line', fontWeight: 1000}}>Click a card to reveal it.</div>
+                <div style={{fontWeight: 400, fontSize: 11, color: '#000',  whiteSpace: 'pre-line', fontWeight: 1000}}>Click a card to reveal it.</div>
               </div>
             )}
             {/* Down arrow */}
-            <div style={{fontSize: 32, margin: '8px 0'}}>&#8595;</div>
-            <button style={{background: '#CCE5E5', color: '#222', border: '2px solid #222', borderRadius: 18, fontWeight: 700, fontSize: 18, padding: '8px 28px', boxShadow: '0 2px 0 #222', cursor: 'pointer', marginTop: 4}}>Learn More</button>
+            <div style={{fontSize: 32, margin: '8px 0'}}>&#8595; </div>
+            <button
+              style={{
+                background: '#CCE5E5',
+                color: '#222',
+                border: '2px solid #222',
+                borderRadius: 18,
+                fontWeight: 700,
+                fontSize: 18,
+                padding: '8px 28px',
+                boxShadow: '0 2px 0 #222',
+                cursor: 'pointer',
+                marginTop: 4
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 2px 0 #222';
+              }}
+            >
+              Learn More
+            </button>
+            
           </div>
           {/* Player 2 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
@@ -197,13 +219,19 @@ function MainGameContent() {
               const p2Color = player2Color || "purple";
               router.push(`/playgame/maingame3?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
             }}
+            onMouseEnter = {(e) => {
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            onMouseLeave = {(e) => {
+              e.currentTarget.style.boxShadow = '3px 6px 0 #222';
+            }}
           >
             Click here when you reach the Equity Arch!
             <Image 
               src="/info-icon.png" 
               alt="Info" 
-              width={40} 
-              height={40}
+              width={55} 
+              height={55}
               style={{ cursor: 'pointer' }}
               onMouseEnter={(e) => {
                 e.stopPropagation();
@@ -233,4 +261,4 @@ export default function MainGamePage() {
       <MainGameContent />
     </Suspense>
   );
-} 
+}

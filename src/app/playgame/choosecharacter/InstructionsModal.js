@@ -27,7 +27,7 @@ export default function InstructionsModal({ onClose }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % imageArray.length);
-    }, 2200); // Change image every 2.2 seconds
+    }, 2200); 
     return () => clearInterval(interval);
   }, [imageArray.length]);
 
