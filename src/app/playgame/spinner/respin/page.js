@@ -1,6 +1,7 @@
 "use client";
 import { Suspense } from "react";
 import { useRouter } from "next/navigation";
+import styles from '../../playgame.module.css';
 
 
 export default function Respin(){
