@@ -103,7 +103,6 @@ export default function ChooseCharacterPageContent() {
     }
   };
 
-
   // Helper to determine color at the top (0 deg is top)
   function getResultColor(angle) {
     // Normalize angle to [0, 360)
@@ -111,11 +110,7 @@ export default function ChooseCharacterPageContent() {
     // Each slice is 45deg, starting at 0deg (top)
     const slice = Math.floor((normalized + 22.5) / 45) % 8; // +22.5 to center the slice
     // Even slices are purple, odd are green
-    
     return slice % 2 === 0 ? "Purple!" : "Green!";
-  }
-  if( result1 === result2){
-
   }
 
   // NavButton-like style for player labels, with #CCE5E5 background
@@ -216,14 +211,10 @@ export default function ChooseCharacterPageContent() {
             <div style={{minHeight: 30, marginTop: 8, fontWeight: 700, fontSize: '1.2rem', color: result2 === 'Purple!' ? '#A24DE2' : '#00975B'}}>
               {result2}
             </div>
-            
           </div>
         </div>
         {/* Continue button */}
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ if(result1 === result2){alert("You MUST spin again! You got the same color.");} router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
-      
-
-      }}>
+        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() => router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)}>
           Continue
         </button>
       </main>

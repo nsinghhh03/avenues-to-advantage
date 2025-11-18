@@ -27,7 +27,7 @@ export default function InstructionsModal({ onClose }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % imageArray.length);
-    }, 1500); 
+    }, 2200); 
     return () => clearInterval(interval);
   }, [imageArray.length]);
 

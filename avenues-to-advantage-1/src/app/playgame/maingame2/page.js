@@ -28,11 +28,11 @@ function MainGameContent() {
     { front: "/equal-wealth.png", back: "/equal-wealth-f1.png" },
   ];
   const greenCards = [
-    { front: "/equal-career.png", back: "/equal-career-f1.png" },
-    { front: "/equal-comm.png", back: "/equal-comm-f1.png" },
-    { front: "/equal-health.png", back: "/equal-health-f1.png" },
-    { front: "/equal-school.png", back: "/equal-school-f1.png" },
-    { front: "/equal-wealth.png", back: "/equal-wealth-f1.png" },
+    { front: "/green-career.png", back: "/green-career-f1.png" },
+    { front: "/green-comm.png", back: "/green-comm-f1.png" },
+    { front: "/green-health.png", back: "/green-health-f1.png" },
+    { front: "/green-school.png", back: "/green-school-f1.png" },
+    { front: "/green-wealth.png", back: "/green-wealth-f1.png" },
   ];
 
   // Pick correct card set for each player

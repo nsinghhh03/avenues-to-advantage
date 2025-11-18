@@ -3,8 +3,8 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
-import InstructionsModal from "../choosecharacter/InstructionsModal";
-import EqualityInfo from "../maingame/EqualityInfo";
+import InstructionsModal from "../choosecharacter/InstructionsModal"
+import EqualityInfo from "./EqualityInfo";
 
 function MainGameContent() {
   const router = useRouter();
@@ -14,25 +14,25 @@ function MainGameContent() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   // Read params
-  const player1Img = searchParams.get('player1Img') ? searchParams.get('player1Img').startsWith('/') ? searchParams.get('player1Img') : `/${searchParams.get('player1Img')}` : "/green_player_1.png";
-  const player2Img = searchParams.get('player2Img') ? searchParams.get('player2Img').startsWith('/') ? searchParams.get('player2Img') : `/${searchParams.get('player2Img')}` : "/purple_player_1.png";
+  const player1Img = searchParams.get('player1Img') ? `/${searchParams.get('player1Img')}` : "/green_player_1.png";
+  const player2Img = searchParams.get('player2Img') ? `/${searchParams.get('player2Img')}` : "/purple_player_1.png";
   const player1Color = searchParams.get('player1Color') || "green";
   const player2Color = searchParams.get('player2Color') || "purple";
 
   // Card sets
   const purpleCards = [
-    { front: "/equal-career.png", back: "/equal-career-f1.png" },
-    { front: "/equal-comm.png", back: "/equal-comm-f1.png" },
-    { front: "/equal-health.png", back: "/equal-health-f1.png" },
-    { front: "/equal-school.png", back: "/equal-school-f1.png" },
-    { front: "/equal-wealth.png", back: "/equal-wealth-f1.png" },
+    { front: "/purple-career.png", back: "/purplecareer.png" },
+    { front: "/purple-community.png", back: "/purple-comm-f1.png" },
+    { front: "/purple-health.png", back: "/purple-health-f1.png" },
+    { front: "/purple-school.png", back: "/purple-school-f1.png" },
+    { front: "/purple-wealth.png", back: "/purple-wealth-f1.png" },
   ];
   const greenCards = [
-    { front: "/equal-career.png", back: "/equal-career-f1.png" },
-    { front: "/equal-comm.png", back: "/equal-comm-f1.png" },
-    { front: "/equal-health.png", back: "/equal-health-f1.png" },
-    { front: "/equal-school.png", back: "/equal-school-f1.png" },
-    { front: "/equal-wealth.png", back: "/equal-wealth-f1.png" },
+    { front: "/green-career.png", back: "/green-career-f1.png" },
+    { front: "/green-comm.png", back: "/green-comm-f1.png" },
+    { front: "/green-health.png", back: "/green-health-f1.png" },
+    { front: "/green-school.png", back: "/green-school-f1.png" },
+    { front: "/green-wealth.png", back: "/green-wealth-f1.png" },
   ];
 
   // Pick correct card set for each player
@@ -67,7 +67,7 @@ function MainGameContent() {
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: 64, marginTop: 24, marginBottom: 32}}>
           {/* Player 1 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
-            <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8, color: 'black'}}>Player 1</div>
+            <div style={{background: '#CCE5E5', borderRadius: 12, padding: '8px 16px', fontWeight: 700, border: '2px solid #222', boxShadow: '0 2px 0 #222', marginBottom: 8, color :'black'}}>Player 1</div>
             <div style={{border: player1Color === 'green' ? '3px solid #7ed957' : '3px solid #b39ddb', borderRadius: 12, padding: 4, marginBottom: 12}}>
               <Image src={player1Img} alt="Player 1" width={90} height={90} />
             </div>
@@ -125,7 +125,7 @@ function MainGameContent() {
             ) : (
               <div style={{background: '#ffe066', borderRadius: 12, boxShadow: '0 3px 0 #222', border: '2px solid #222', width: 180, minHeight: 120, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: 20, marginBottom: 8, padding: 12}}>
                 
-                <div style={{fontWeight: 400, fontSize: 11, color: '#000',  whiteSpace: 'pre-line', fontWeight: 1000}}>Click a card to reveal it.</div>
+                <div style={{fontWeight: 400, fontSize: 11, whiteSpace: 'pre-line', fontWeight: 1000, color: 'black'}}>Click a card to reveal it.</div>
               </div>
             )}
             {/* Down arrow */}
@@ -152,7 +152,6 @@ function MainGameContent() {
             >
               Learn More
             </button>
-            
           </div>
           {/* Player 2 */}
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 180}}>
@@ -209,24 +208,27 @@ function MainGameContent() {
           </div>
         </div>
         {/* Bottom yellow button */}
-        <div style={{ position: 'relative', display: 'inline-block' }}>
+        <div style={{ position: 'relative', display: 'inline-block' }}
+        >
+          
           <button 
-            style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px'}}
+            style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px'}} 
             onClick={() => {
               const p1Img = player1Img || "/green_player_1.png";
               const p2Img = player2Img || "/purple_player_1.png";
               const p1Color = player1Color || "green";
               const p2Color = player2Color || "purple";
-              router.push(`/playgame/maingame3?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
+              router.push(`/playgame/maingame2?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
             }}
-            onMouseEnter = {(e) => {
+             onMouseEnter = {(e) => {
               e.currentTarget.style.boxShadow = 'none';
             }}
             onMouseLeave = {(e) => {
               e.currentTarget.style.boxShadow = '3px 6px 0 #222';
             }}
           >
-            Click here when you reach the Equity Arch!
+            Click here when you reach the Equality Arch!
+           
             <Image 
               src="/info-icon.png" 
               alt="Info" 
@@ -236,6 +238,7 @@ function MainGameContent() {
               onMouseEnter={(e) => {
                 e.stopPropagation();
                 e.currentTarget.style.transform = 'scale(1.05)';
+                
                 setShowTooltip(true);
               }}
               onMouseLeave={(e) => {
@@ -243,10 +246,14 @@ function MainGameContent() {
                 e.currentTarget.style.transform = 'scale(1)';
                 setShowTooltip(false);
               }}
+              
             />
+            
           </button>
-          {showTooltip && <EqualityInfo text = "In this section of the game, instead of both players having similar cards, the cards will be more equal and fair." />}
+          
+          {showTooltip && <EqualityInfo text = "In this section of the game, the rules are going to change. Now, instead of one player having better cards, the cards will be a bit more simliar." />}
         </div>
+      
       </main>
       {showInstructions && (
         <InstructionsModal onClose={() => setShowInstructions(false)} />
@@ -257,8 +264,8 @@ function MainGameContent() {
 
 export default function MainGamePage() {
   return (
-    <Suspense fallback={<div style={{color: '#222', fontSize: 24, fontWeight: 700, textAlign: 'center', marginTop: 100}}>An error occurred. Please Try again.</div>}>
+    <Suspense fallback={<div style={{color: '#222', fontSize: 24, fontWeight: 700, textAlign: 'center', marginTop: 100}}>An error occurred. Please try again.</div>}>
       <MainGameContent />
     </Suspense>
   );
-}
+} 
