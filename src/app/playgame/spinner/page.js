@@ -114,9 +114,7 @@ export default function ChooseCharacterPageContent() {
     
     return slice % 2 === 0 ? "Purple!" : "Green!";
   }
-  if( result1 === result2){
-
-  }
+  
 
   // NavButton-like style for player labels, with #CCE5E5 background
   const playerBtnStyle = {
@@ -220,7 +218,7 @@ export default function ChooseCharacterPageContent() {
           </div>
         </div>
         {/* Continue button */}
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ if(result1 === result2){router.push('/playgame/spinner/respin'); } router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
+        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
       
 
       }}>
