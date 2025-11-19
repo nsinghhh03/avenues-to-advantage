@@ -85,11 +85,17 @@ export default function ChooseCharacterClient() {
         </main>
       </div>
     
+<<<<<<< HEAD
 
 
 );
   }
+=======
+>>>>>>> 268216daf9135282f190d6793290923a0e53e4e1
 
+
+);
+  }
   if (!player1 || !player2) {
    
     return (
