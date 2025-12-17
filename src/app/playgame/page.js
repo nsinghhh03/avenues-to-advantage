@@ -73,7 +73,7 @@ useEffect(() => {
       setAnimateInstructions(false);
     }
 
-  ;}}
+  }}
   onAnimationEnd={() => {
     setAnimateInstructions(false);
     setAnimationPlayed(true);
