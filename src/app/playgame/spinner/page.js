@@ -2,7 +2,7 @@
 import { Suspense } from 'react';
 import styles from '../playgame.module.css';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 import InstructionsModal from '../choosecharacter/InstructionsModal';
 

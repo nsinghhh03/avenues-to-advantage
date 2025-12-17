@@ -3,7 +3,7 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
-import InstructionsModal from "./InstructionsModal";  
+import InstructionsModal from "./InstructionsModal";
 
 
 export default function ChooseCharacterClient() {
