@@ -61,26 +61,9 @@ export default function ChooseCharacterClient() {
   const [selectedCharacter, setSelectedCharacter] = useState({ player1: null, player2: null });
   const [showInstructions, setShowInstructions] = useState(false);
 
-  if (player1 === player2) {
-    return (
-      <div className={styles.chooseCharacterFallbackPage}>
-        <main className={styles.chooseCharacterFallbackMain}>
-          <div style={{
-            fontSize: '1.2rem',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '2rem',
-            color: '#000'
-          }}>
-            Both players got the same color! Respin the wheel to keep playing.
-            <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>
-          </div>
-        </main>
-      </div>
-    );
-  }
+ 
 
-  if (!player1 || !player2) {
+  if ((!player1 || !player2)) {
     return (
       <div className={styles.chooseCharacterFallbackPage}>
         <main className={styles.chooseCharacterFallbackMain}>
@@ -91,7 +74,7 @@ export default function ChooseCharacterClient() {
             marginBottom: '2rem',
             color: '#000'
           }}>
-            Spin The Wheel Before Proceeding!
+            Spin The Wheel(s) Before Proceeding!
             <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>
           </div>
         </main>
@@ -118,10 +101,10 @@ export default function ChooseCharacterClient() {
     const player2Color = cleanColor(player2);
 
     const p1Img = selectedCharacter.player1 !== null 
-      ? getCharacters(player1Color)[selectedCharacter.player1].src.replace("/", "")
+      ? getCharacters(player1Color)[selectedCharacter.player1].src.replace(/^\//, "")
       : "green_player_1.png";
     const p2Img = selectedCharacter.player2 !== null 
-      ? getCharacters(player2Color)[selectedCharacter.player2].src.replace("/", "")
+      ? getCharacters(player2Color)[selectedCharacter.player2].src.replace(/^\//, "")
       : "purple_player_1.png";
 
     router.push(`/playgame/skincolor?player1Img=${p1Img}&player1Color=${player1Color.toLowerCase()}&player2Img=${p2Img}&player2Color=${player2Color.toLowerCase()}`);

@@ -38,7 +38,7 @@ export default function ChooseCharacterPageContent() {
     setIsMuted(false);
     const audio = new Audio('/secondpage.mp3');
     audioRef.current = audio;
-    audio.play();
+    audio.play().catch((e) => console.warn('Audio play interrupted:', e));
     // When audio ends, set isMuted back to true
     audio.onended = () => setIsMuted(true);
   };
@@ -144,6 +144,8 @@ export default function ChooseCharacterPageContent() {
   // Upscale spinner size
   const spinnerSize = 160;
 
+
+
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
       {/* Header and nav */}
@@ -218,7 +220,7 @@ export default function ChooseCharacterPageContent() {
           </div>
         </div>
         {/* Continue button */}
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ if(result1 === result2){router.push('/playgame/spinner/respin'); return;} router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
+        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
       
 
       }}>

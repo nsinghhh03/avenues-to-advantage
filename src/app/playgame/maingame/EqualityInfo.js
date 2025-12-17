@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useRef, useState } from "react";
 import styles from "../playgame.module.css";
 
 export default function EqualityInfo({ text }) {

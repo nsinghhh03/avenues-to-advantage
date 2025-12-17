@@ -1,3 +1,4 @@
+"use client";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "../playgame.module.css";
@@ -27,7 +28,7 @@ export default function InstructionsModal({ onClose }) {
     }
     setIsMuted(false);
     audioRef.current.currentTime = 0;
-    audioRef.current.play();
+    audioRef.current.play().catch((e) => console.warn('Audio play interrupted:', e));
   };
 
   return (

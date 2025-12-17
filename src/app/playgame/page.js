@@ -36,7 +36,7 @@ import InstructionsModal from "./choosecharacter/InstructionsModal"; // adjust p
   audioRef.current = audio;
   setIsMuted(false);
 
-  audio.play();
+  audio.play().catch((e) => console.warn('Audio play interrupted:', e));
 };
 useEffect(() => {
     return () => {
