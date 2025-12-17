@@ -69,18 +69,18 @@
 }
 .navButton:hover,
 .active:hover {
-padding: 0 !important;
-box-shadow: 0 !important;
+
+box-shadow: none !important;
 }
 .navButton:hover,
 .instructions:hover {
-padding: 0 !important;
-  box-shadow: 0 !important;
+
+  box-shadow: none !important;
 }
 .navButton:hover,
 .orange:hover {
-padding: 0 !important;
-  box-shadow: 0 !important;
+
+  box-shadow: none !important;
 }
 
 .orange {
@@ -354,16 +354,13 @@ padding: 0 !important;
 /* Make boxshadow disappear back and forth*/
 @keyframes indicatorGlow{
   0% {
-    box-shadow: 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222;
-    padding: 12px 22px;
+  opacity : 1;
   }
   50% {
-    box-shadow: none ;
-    padding: 14px 24px;
+   opacity : 0.2;
   }
   100% {
-    box-shadow: 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222;
-    padding: 12px 22px;
+  opacity: 1;
   }
 }
 .instructions-animation{
