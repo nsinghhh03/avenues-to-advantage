@@ -3,7 +3,7 @@ import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
-import InstructionsModal from "../choosecharacter/InstructionsModal"
+import InstructionsModal from "../choosecharacter/InstructionsModal";
 import EqualityInfo from "./EqualityInfo";
 
 function MainGameContent() {
