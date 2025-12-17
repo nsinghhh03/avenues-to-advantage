@@ -69,18 +69,18 @@
 }
 .navButton:hover,
 .active:hover {
-padding: none !important;
-box-shadow: none !important;
+padding: 0 !important;
+box-shadow: 0 !important;
 }
 .navButton:hover,
 .instructions:hover {
-padding: none !important;
-  box-shadow: none !important;
+padding: 0 !important;
+  box-shadow: 0 !important;
 }
 .navButton:hover,
 .orange:hover {
-padding: none !important;
-  box-shadow: none !important;
+padding: 0 !important;
+  box-shadow: 0 !important;
 }
 
 .orange {
@@ -121,10 +121,10 @@ padding: none !important;
   position: relative;
 }
 
-.speakerIcon {
+/*.speakerIcon {
   font-size: 1.3rem;
   margin-right: 10px;
-}
+} */
 
 .boardImageWrapper {
   display: flex;
@@ -359,7 +359,7 @@ padding: none !important;
   }
   50% {
     box-shadow: none ;
-   
+    padding: 14px 24px;
   }
   100% {
     box-shadow: 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222;

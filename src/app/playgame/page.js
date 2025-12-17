@@ -60,7 +60,7 @@ useEffect(() => {
       <nav className={styles.navbar}>
         
         <button id = "playGameID"  className={`${styles.navButton} ${styles.active}`} onClick={() => {router.push('/playgame')}}
-          style = {{opacity : !animateInstructions ? 1 : 0.5}} > 
+          style = {{opacity : !animateInstructions ? 1 : 0.2}} > 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
@@ -85,12 +85,12 @@ useEffect(() => {
           Instructions
         </button>
         <button id = "cameraID" className={`${styles.navButton} ${styles.orange}`}
-        style = {{opacity : !animateInstructions ? 1 : 0.5}}> 
+        style = {{opacity : !animateInstructions ? 1 : 0.2}}> 
           <Image src="/dslr-camera.png" alt="View Videos" width={24} height={24} />
           View Videos
         </button>
         <button id = "cardsID" className={`${styles.navButton} ${styles.blue}`}
-        style = {{opacity : !animateInstructions ? 1 : 0.5}}> 
+        style = {{opacity : !animateInstructions ? 1 : 0.2}}> 
           <Image src="/cards.png" alt="View Cards" width={24} height={24} />
           View Cards
         </button>
