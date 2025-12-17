@@ -39,13 +39,9 @@ export default function ChooseCharacterClient() {
     lastClickTime.current = Date.now();
     setIsMuted(false);
 
-    // Always create a new Audio instance to avoid race conditions
     const audio = new Audio('/thirdpage.mp3');
     audioRef.current = audio;
-    audio.play().catch((e) => {
-      // handle play() errors here
-      console.warn('Audio play interrupted:', e);
-    });
+    audio.play().catch((e) => console.warn('Audio play interrupted:', e));
     audio.onended = () => setIsMuted(true);
   };
 
@@ -62,12 +58,11 @@ export default function ChooseCharacterClient() {
     { src: '/purple_player_4.png', alt: 'Purple Girl 3' },
   ];
 
-  const [selectedGreen, setSelectedGreen] = useState(null);
-  const [selectedPurple, setSelectedPurple] = useState(null);
+  const [selectedCharacter, setSelectedCharacter] = useState({ player1: null, player2: null });
   const [showInstructions, setShowInstructions] = useState(false);
-  if (player1 === player2){
-    return(
-  
+
+  if (player1 === player2) {
+    return (
       <div className={styles.chooseCharacterFallbackPage}>
         <main className={styles.chooseCharacterFallbackMain}>
           <div style={{
@@ -78,26 +73,14 @@ export default function ChooseCharacterClient() {
             color: '#000'
           }}>
             Both players got the same color! Respin the wheel to keep playing.
-            <button className={styles.backButton} onClick={() => router.back()}>
-              Go Back
-            </button>
+            <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>
           </div>
         </main>
       </div>
-    
-<<<<<<< HEAD
-
-
-);
+    );
   }
-=======
->>>>>>> 268216daf9135282f190d6793290923a0e53e4e1
 
-
-);
-  }
   if (!player1 || !player2) {
-   
     return (
       <div className={styles.chooseCharacterFallbackPage}>
         <main className={styles.chooseCharacterFallbackMain}>
@@ -107,7 +90,6 @@ export default function ChooseCharacterClient() {
             textAlign: 'center',
             marginBottom: '2rem',
             color: '#000'
-            
           }}>
             Spin The Wheel Before Proceeding!
             <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>
@@ -117,7 +99,6 @@ export default function ChooseCharacterClient() {
     );
   }
 
-  // Robust cleanColor function
   const cleanColor = (player) => {
     if (!player) return '';
     const val = player.toLowerCase().replace('!', '').trim();
@@ -126,42 +107,38 @@ export default function ChooseCharacterClient() {
     return '';
   };
 
-  const handleContinue = () => {
-    // Determine which player is green/purple and which character was selected
-    const player1Color = cleanColor(player1).toLowerCase();
-    const player2Color = cleanColor(player2).toLowerCase();
-
-    let player1Img = "";
-    let player2Img = "";
-
-    if (player1Color === "green") {
-      player1Img = selectedGreen !== null ? greenCharacters[selectedGreen].src.replace("/", "") : "";
-    } else if (player1Color === "purple") {
-      player1Img = selectedPurple !== null ? purpleCharacters[selectedPurple].src.replace("/", "") : "";
-    }
-
-    if (player2Color === "green") {
-      player2Img = selectedGreen !== null ? greenCharacters[selectedGreen].src.replace("/", "") : "";
-    } else if (player2Color === "purple") {
-      player2Img = selectedPurple !== null ? purpleCharacters[selectedPurple].src.replace("/", "") : "";
-    }
-
-    // Add default values to prevent empty strings
-    const p1Img = player1Img || "green_player_1.png";
-    const p2Img = player2Img || "purple_player_1.png";
-    const p1Color = player1Color || "green";
-    const p2Color = player2Color || "purple";
-
-    router.push(`/playgame/skincolor?player1Img=${p1Img}&player1Color=${p1Color}&player2Img=${p2Img}&player2Color=${p2Color}`);
+  const getCharacters = (color) => {
+    if (color === 'Green') return greenCharacters;
+    if (color === 'Purple') return purpleCharacters;
+    return [];
   };
+
+  const handleContinue = () => {
+    const player1Color = cleanColor(player1);
+    const player2Color = cleanColor(player2);
+
+    const p1Img = selectedCharacter.player1 !== null 
+      ? getCharacters(player1Color)[selectedCharacter.player1].src.replace("/", "")
+      : "green_player_1.png";
+    const p2Img = selectedCharacter.player2 !== null 
+      ? getCharacters(player2Color)[selectedCharacter.player2].src.replace("/", "")
+      : "purple_player_1.png";
+
+    router.push(`/playgame/skincolor?player1Img=${p1Img}&player1Color=${player1Color.toLowerCase()}&player2Img=${p2Img}&player2Color=${player2Color.toLowerCase()}`);
+  };
+
+  const players = [
+    { id: 1, color: cleanColor(player1) },
+    { id: 2, color: cleanColor(player2) }
+  ];
 
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
-      {/* Header and nav ... (unchanged) ... */}
       <header className={styles.header}>
         <button className={styles.headerBackButton} aria-label="Back" onClick={() => router.back()}>←</button>
         <h1 className={styles.title}>Play Game</h1>
       </header>
+
       <nav className={styles.navbar}>
         <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
@@ -180,8 +157,8 @@ export default function ChooseCharacterClient() {
           View Cards
         </button>
       </nav>
+
       <main className={styles.main} style={{ filter: showInstructions ? "blur(1.4px) brightness(0.7)" : "none" }}>
-        {/* Instructions */}
         <div className={styles.descriptionBox} style={{maxWidth: 700, marginBottom: 32}}>
           <button
             className={styles.speakerIcon}
@@ -200,48 +177,33 @@ export default function ChooseCharacterClient() {
             If you landed on <span style={{color: '#A24DE2', fontWeight: 600}}>PURPLE</span>, then pick one of the characters from the <span style={{color: '#A24DE2', fontWeight: 600}}>PURPLE</span> pile below. If you landed on <span style={{color: '#00975B', fontWeight: 600}}>GREEN</span>, then pick one of the characters from the <span style={{color: '#00975B', fontWeight: 600}}>GREEN</span> pile below. Then, click <span style={{color: '#ffd166', fontWeight: 600}}>CONTINUE</span> to learn more about your characters.
           </p>
         </div>
-        {/* Character cards */}
+
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16}}>
-          {/* Green row */}
-          <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16}}>
-            {/* Show Player 1/2 label if they landed on green */}
-            {(cleanColor(player1) === 'Green' || cleanColor(player2) === 'Green') && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: 12 }}>
-                {cleanColor(player1) === 'Green' && <span style={{fontWeight: 700, color: '#00975B', fontSize: '1.5rem'}}>Player 1</span>}
-                {cleanColor(player2) === 'Green' && <span style={{fontWeight: 700, color: '#00975B', fontSize: '1.5rem'}}>Player 2</span>}
+          {players.map(player => {
+            const charArr = getCharacters(player.color);
+            const selected = selectedCharacter[`player${player.id}`];
+
+            return (
+              <div key={player.id} style={{display: 'flex', alignItems: 'center', gap: 12}}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: 12 }}>
+                  <span style={{fontWeight: 700, color: player.color === 'Green' ? '#00975B' : '#A24DE2', fontSize: '1.5rem'}}>
+                    Player {player.id}
+                  </span>
+                </div>
+                {charArr.map((char, idx) => (
+                  <div
+                    key={idx}
+                    className={`${styles.character} ${selected !== null && selected !== idx ? styles.visuallyDimmed : ""} ${selected === idx ? styles.selected : ""}`}
+                    onClick={() => setSelectedCharacter(prev => ({...prev, [`player${player.id}`]: idx}))}
+                  >
+                    <Image src={char.src} alt={char.alt} width={111} height={111} />
+                  </div>
+                ))}
               </div>
-            )}
-            {greenCharacters.map((char, idx) => (
-              <div
-                key={idx}
-                className={`${styles.character} ${selectedGreen !== null && selectedGreen !== idx ? styles.visuallyDimmed : ""} ${selectedGreen === idx ? styles.selected : ""}`}
-                onClick={() => setSelectedGreen(idx)}
-              >
-                <Image src={char.src} alt={char.alt} width={111} height={111} />
-              </div>
-            ))}
-          </div>
-          {/* Purple row */}
-          <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
-            {/* Show Player 1/2 label if they landed on purple */}
-            {(cleanColor(player1) === 'Purple' || cleanColor(player2) === 'Purple') && (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginRight: 12 }}>
-                {cleanColor(player1) === 'Purple' && <span style={{fontWeight: 700, color: '#A24DE2', fontSize: '1.5rem'}}>Player 1</span>}
-                {cleanColor(player2) === 'Purple' && <span style={{fontWeight: 700, color: '#A24DE2', fontSize: '1.5rem'}}>Player 2</span>}
-              </div>
-            )}
-            {purpleCharacters.map((char, idx) => (
-              <div
-                key={idx}
-                className={`${styles.character} ${selectedPurple !== null && selectedPurple !== idx ? styles.visuallyDimmed : ""} ${selectedPurple === idx ? styles.selected : ""}`}
-                onClick={() => setSelectedPurple(idx)}
-              >
-                <Image src={char.src} alt={char.alt} width={111} height={111} />
-              </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
-        {/* Continue button */}
+
         <button
           className={styles.continueButton}
           style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', marginTop: 32}}
@@ -250,10 +212,10 @@ export default function ChooseCharacterClient() {
           Continue
         </button>
       </main>
-      {/* Instructions Modal */}
+
       {showInstructions && (
         <InstructionsModal onClose={() => setShowInstructions(false)} />
       )}
     </div>
   );
-} 
+}

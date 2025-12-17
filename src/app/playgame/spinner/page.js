@@ -218,11 +218,7 @@ export default function ChooseCharacterPageContent() {
           </div>
         </div>
         {/* Continue button */}
-<<<<<<< HEAD
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
-=======
-        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ if(result1 === result2){router.push('/playgame/spinner/respin');}  router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
->>>>>>> 268216daf9135282f190d6793290923a0e53e4e1
+        <button className={styles.continueButton} style={{background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem'}} onClick={() =>{ if(result1 === result2){router.push('/playgame/spinner/respin'); return;} router.push(`/playgame/choosecharacter?player1=${result1}&player2=${result2}`)
       
 
       }}>

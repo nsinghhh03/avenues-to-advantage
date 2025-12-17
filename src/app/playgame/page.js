@@ -5,13 +5,16 @@ import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 import InstructionsModal from "./choosecharacter/InstructionsModal"; // adjust path as needed
 
-export default function PlayGame() {
+ export default function PlayGame() {
   const [showInstructions, setShowInstructions] = useState(false);
   
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
+  const [animateInstructions, setAnimateInstructions] = useState(true);
+  const [animationPlayed, setAnimationPlayed] = useState(false);
+ 
 
 
  const handleSpeak = () => {
@@ -44,8 +47,10 @@ useEffect(() => {
     };
   }, []);
 
+
   
 
+  
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -54,22 +59,38 @@ useEffect(() => {
       </header>
       <nav className={styles.navbar}>
         
-        <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
+        <button id = "playGameID"  className={`${styles.navButton} ${styles.active}`} onClick={() => {router.push('/playgame')}}
+          style = {{opacity : !animateInstructions ? 1 : 0.5}} > 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button
-          className={`${styles.navButton} ${styles.instructions}`}
-          onClick={() => setShowInstructions(true)}
+        <button id  = "instructionsID" 
+          className={`${styles.navButton} ${styles.instructions} ${
+    animateInstructions ? styles['instructions-animation'] : ''
+  }`} onClick={() => {
+  setShowInstructions(true);
+    if(!animationPlayed){
+      setAnimateInstructions(false);
+    }
+
+  ;}}
+  onAnimationEnd={() => {
+    setAnimateInstructions(false);
+    setAnimationPlayed(true);
+  }}
+
+  
         >
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>
-        <button className={`${styles.navButton} ${styles.orange}`}> 
+        <button id = "cameraID" className={`${styles.navButton} ${styles.orange}`}
+        style = {{opacity : !animateInstructions ? 1 : 0.5}}> 
           <Image src="/dslr-camera.png" alt="View Videos" width={24} height={24} />
           View Videos
         </button>
-        <button className={`${styles.navButton} ${styles.blue}`}> 
+        <button id = "cardsID" className={`${styles.navButton} ${styles.blue}`}
+        style = {{opacity : !animateInstructions ? 1 : 0.5}}> 
           <Image src="/cards.png" alt="View Cards" width={24} height={24} />
           View Cards
         </button>
@@ -111,4 +132,5 @@ useEffect(() => {
       )}
     </div>
   );
-} 
+}
+ 

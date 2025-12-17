@@ -70,7 +70,7 @@
 .navButton:hover,
 .active:hover {
 padding: none !important;
-  box-shadow: none !important;
+box-shadow: none !important;
 }
 .navButton:hover,
 .instructions:hover {
@@ -351,5 +351,23 @@ padding: none !important;
   align-items: center;
   margin: 18px 0;
 }
-
+/* Make boxshadow disappear back and forth*/
+@keyframes indicatorGlow{
+  0% {
+    box-shadow: 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222;
+    padding: 12px 22px;
+  }
+  50% {
+    box-shadow: none ;
+   
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(34,34,34,0.25), 3px 6px 0 #222;
+    padding: 12px 22px;
+  }
+}
+.instructions-animation{
+  
+  animation: indicatorGlow 1s infinite;
+}
 
