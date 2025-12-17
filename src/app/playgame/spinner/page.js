@@ -1,5 +1,4 @@
 "use client";
-import { Suspense } from 'react';
 import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
