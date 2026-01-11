@@ -20,7 +20,7 @@ function Dice(){
         setRolling(true);
         const newRoll = Math.floor(Math.random() * 6) + 1;
         setDiceValue(newRoll);
-        setRolling(false);
+        setRolling(false);  
         setTimeout(() => {
             setRolling(false);
         }, 1000);
