@@ -77,7 +77,7 @@ function SkinColorContent() {
             </button>
           </nav>
           {/* Description box */}
-          <div className={styles.descriptionBox} style={{ maxWidth: 830 }}>
+          <div className={styles.descriptionBox} style={{ maxWidth: 830, marginBottom: 0 }}>
             <button
               className={styles.speakerIcon}
               onClick={handleSpeak}
@@ -100,9 +100,11 @@ function SkinColorContent() {
               />
             </button>
             <p style={{margin: 0, color: 'black'}}>
-              <span style={{fontWeight: 'bold', }}>
-                Your characters have different skin colors! Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900' }}>melanin</span>.
-              </span> If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades. People sometimes use color words like Black and White to describe skin tones. One player has dark skin, so we might say that player is Black. The other player has lighter skin, so we might say that player is White. Sometimes we also say 'people of color' to talk about all the groups of people who aren't white Sometimes we also say 'people of color' to talk about all the groups of people who aren't white."
+              Characters have different skin colors!
+              <br /><br />
+              Our skin gets its color from something in our bodies called <span style={{ color: '#e1b900', fontWeight: 'bold' }}>melanin</span>. If you have more melanin, your skin is darker, and if you have less, your skin is lighter. Melanin gives us lots of beautiful shades.
+              <br /><br />
+              People sometimes use color words like Black and White to describe skin tones. One player has dark skin, so we might say that player is Black. One player has lighter skin, so we might say that character is White. Sometimes we also say 'people of color' to talk about all the groups of people who aren't white.
             </p>
           </div>
           {/* Add hover effect for the description box */}
@@ -113,11 +115,11 @@ function SkinColorContent() {
             }
           `}</style>
           {/* Illustration */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '32px 0 8px 0' }}>
-            <Image src="/kids.png" alt="Two children and a sun" width={515} height={411} style={{ marginBottom: 12 }} />
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: -8 }}>
+            <Image src="/kids.png" alt="Two children and a sun" width={400} height={300} style={{ marginBottom: 0 }} />
           </div>
           {/* Continue button */}
-          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', margin: '8px auto 0 auto', display: 'block'}} onClick={() => router.push(`/playgame/nextpage?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
+          <button className={styles.continueButton} style={{ background: '#ffd166', color: '#222', border: '2px solid #222', fontWeight: 600, fontSize: '1.1rem', marginTop: -8, marginBottom: 0, marginLeft: 'auto', marginRight: 'auto', display: 'block'}} onClick={() => router.push(`/playgame/nextpage?player1Img=${player1Img}&player1Color=${player1Color}&player2Img=${player2Img}&player2Color=${player2Color}`)}>
             Continue
           </button>
         </main>

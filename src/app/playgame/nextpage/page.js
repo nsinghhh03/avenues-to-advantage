@@ -89,7 +89,12 @@ function NextPageContent() {
               />
             </button>
             <p style={{margin: 0, fontWeight: 'bold', color: 'black'}}>
-              A long time ago, people in power decided to use these skin color labels to sort people into a made up idea called race. Over time, people started treating these race labels as really important, even though they were made up. It's important to mention that skin color or race can't tell you about what people are like on the inside, like their favorite books or what they know. To learn these things about different people, you need to ask! Now that you have learned about your characters, click <span style={{color: '#D3D730', fontWeight: 700}}>Instructions</span> on the top to review the rules of the game. Then, click <span style={{color: '#ffd166', fontWeight: 700}}>Continue</span> to begin!
+              A long time ago, people in power decided to use these skin color labels to sort people into a made up idea called race. 
+              <br /><br />
+              Over time, people started treating these race labels as really important, even though they were made up. It's important to mention that skin color or race can't tell you about what people are like on the inside, like their favorite books or what they know. To learn these things about different people, you need to ask! 
+              <br /><br />
+              Now that you have learned about your characters, click <span style={{color: '#D3D730', fontWeight: 700}}>Instructions</span> on the top to review the rules of the game. Then, click <span style={{color: '#ffd166', fontWeight: 700}}>Continue</span> to begin!
+              
             </p>
           </div>
           <Image src="/rules-race.png" alt="race rules" width={463} height={340} style={{margin: '0 auto'}} />

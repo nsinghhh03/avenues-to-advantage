@@ -4,6 +4,8 @@ const nextConfig = {
   reactStrictMode: true,
   // Disable static optimization issues
   output: undefined,
+  // Ensure proper transpilation
+  transpilePackages: [],
 };
 
-export default nextConfig;
+export default nextConfig;  

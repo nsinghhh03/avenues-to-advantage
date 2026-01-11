@@ -2,9 +2,11 @@
 import styles from '../playgame.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import InstructionsModal from "../choosecharacter/InstructionsModal";
 import EqualityInfo from "./EqualityInfo";
+import Dice from "../../dice";
+
 
 function MainGameContent() {
   const router = useRouter();
@@ -12,6 +14,7 @@ function MainGameContent() {
   const [showInstructions, setShowInstructions] = useState(false);
   const [revealedCard, setRevealedCard] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [revealedCards, setRevealedCards] = useState(new Set());
 
   // Read params
   const player1Img = searchParams.get('player1Img') ? `/${searchParams.get('player1Img')}` : "/green_player_1.png";
@@ -36,8 +39,24 @@ function MainGameContent() {
   ];
 
   // Pick correct card set for each player
-  const player1Cards = player1Color === "green" ? greenCards : purpleCards;
-  const player2Cards = player2Color === "green" ? greenCards : purpleCards;
+  const player1CardSet = player1Color === "green" ? greenCards : purpleCards;
+  const player2CardSet = player2Color === "green" ? greenCards : purpleCards;
+  
+  const [player1Cards, setPlayer1Cards] = useState(player1CardSet);
+  const [player2Cards, setPlayer2Cards] = useState(player2CardSet);
+  
+  useEffect(() => {
+    setPlayer1Cards([...player1CardSet].sort(() => Math.random() - 0.5));
+    setPlayer2Cards([...player2CardSet].sort(() => Math.random() - 0.5));
+  }, []);
+
+  // Handle card reveal
+  const handleCardClick = (card) => {
+    if (!revealedCards.has(card.front)) {
+      setRevealedCards(prev => new Set([...prev, card.front]));
+      setRevealedCard(card.back);
+    }
+  };
 
   return (
     <div className={styles.page} style={{background: '#e9e6fa'}}>
@@ -74,47 +93,57 @@ function MainGameContent() {
             <div style={{display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', marginTop: 8}}>
               {/* Top row - 3 cards */}
               <div style={{display: 'flex', gap: 16}}>
-                {player1Cards.slice(0, 3).map((card, i) => (
-                  <Image
-                    key={i}
-                    src={card.front}
-                    alt={`Card ${i+1}`}
-                    width={83}
-                    height={107}
-                    style={{
-                      cursor: 'pointer',
-                      borderRadius: '14px',
-                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
-                      border: '2px solid #222',
-                      transition: 'transform 0.15s, box-shadow 0.15s',
-                    }}
-                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                    onClick={() => setRevealedCard(card.back)}
-                  />
-                ))}
+                {player1Cards.slice(0, 3).map((card, i) => {
+                  const isRevealed = revealedCards.has(card.front);
+                  return (
+                    <Image
+                      key={i}
+                      src={card.front}
+                      alt={`Card ${i+1}`}
+                      width={83}
+                      height={107}
+                      style={{
+                        cursor: 'pointer',
+                        borderRadius: '14px',
+                        boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                        border: '2px solid #222',
+                        transition: 'transform 0.15s, box-shadow 0.15s',
+                        opacity: isRevealed ? 0.5 : 1,
+                        pointerEvents: isRevealed ? 'none' : 'auto',
+                      }}
+                      onMouseOver={e => !isRevealed && (e.currentTarget.style.transform = 'scale(1.05)')}
+                      onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                      onClick={() => handleCardClick(card)}
+                    />
+                  );
+                })}
               </div>
               {/* Bottom row - 2 cards */}
               <div style={{display: 'flex', gap: 16}}>
-                {player1Cards.slice(3, 5).map((card, i) => (
-                  <Image
-                    key={i + 3}
-                    src={card.front}
-                    alt={`Card ${i+4}`}
-                    width={83}
-                    height={107}
-                    style={{
-                      cursor: 'pointer',
-                      borderRadius: '14px',
-                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
-                      border: '2px solid #222',
-                      transition: 'transform 0.15s, box-shadow 0.15s',
-                    }}
-                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                    onClick={() => setRevealedCard(card.back)}
-                  />
-                ))}
+                {player1Cards.slice(3, 5).map((card, i) => {
+                  const isRevealed = revealedCards.has(card.front);
+                  return (
+                    <Image
+                      key={i + 3}
+                      src={card.front}
+                      alt={`Card ${i+4}`}
+                      width={83}
+                      height={107}
+                      style={{
+                        cursor: 'pointer',
+                        borderRadius: '14px',
+                        boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                        border: '2px solid #222',
+                        transition: 'transform 0.15s, box-shadow 0.15s',
+                        opacity: isRevealed ? 0.5 : 1,
+                        pointerEvents: isRevealed ? 'none' : 'auto',
+                      }}
+                      onMouseOver={e => !isRevealed && (e.currentTarget.style.transform = 'scale(1.05)')}
+                      onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                      onClick={() => handleCardClick(card)}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -162,47 +191,57 @@ function MainGameContent() {
             <div style={{display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', marginTop: 8}}>
               {/* Top row - 3 cards */}
               <div style={{display: 'flex', gap: 16}}>
-                {player2Cards.slice(0, 3).map((card, i) => (
-                  <Image
-                    key={i}
-                    src={card.front}
-                    alt={`Card ${i+1}`}
-                    width={83}
-                    height={107}
-                    style={{
-                      cursor: 'pointer',
-                      borderRadius: '14px',
-                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
-                      border: '2px solid #222',
-                      transition: 'transform 0.15s, box-shadow 0.15s',
-                    }}
-                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                    onClick={() => setRevealedCard(card.back)}
-                  />
-                ))}
+                {player2Cards.slice(0, 3).map((card, i) => {
+                  const isRevealed = revealedCards.has(card.front);
+                  return (
+                    <Image
+                      key={i}
+                      src={card.front}
+                      alt={`Card ${i+1}`}
+                      width={83}
+                      height={107}
+                      style={{
+                        cursor: 'pointer',
+                        borderRadius: '14px',
+                        boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                        border: '2px solid #222',
+                        transition: 'transform 0.15s, box-shadow 0.15s',
+                        opacity: isRevealed ? 0.5 : 1,
+                        pointerEvents: isRevealed ? 'none' : 'auto',
+                      }}
+                      onMouseOver={e => !isRevealed && (e.currentTarget.style.transform = 'scale(1.05)')}
+                      onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                      onClick={() => handleCardClick(card)}
+                    />
+                  );
+                })}
               </div>
               {/* Bottom row - 2 cards */}
               <div style={{display: 'flex', gap: 16}}>
-                {player2Cards.slice(3, 5).map((card, i) => (
-                  <Image
-                    key={i + 3}
-                    src={card.front}
-                    alt={`Card ${i+4}`}
-                    width={83}
-                    height={107}
-                    style={{
-                      cursor: 'pointer',
-                      borderRadius: '14px',
-                      boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
-                      border: '2px solid #222',
-                      transition: 'transform 0.15s, box-shadow 0.15s',
-                    }}
-                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                    onClick={() => setRevealedCard(card.back)}
-                  />
-                ))}
+                {player2Cards.slice(3, 5).map((card, i) => {
+                  const isRevealed = revealedCards.has(card.front);
+                  return (
+                    <Image
+                      key={i + 3}
+                      src={card.front}
+                      alt={`Card ${i+4}`}
+                      width={83}
+                      height={107}
+                      style={{
+                        cursor: 'pointer',
+                        borderRadius: '14px',
+                        boxShadow: '0 4px 12px rgba(34,34,34,0.18)',
+                        border: '2px solid #222',
+                        transition: 'transform 0.15s, box-shadow 0.15s',
+                        opacity: isRevealed ? 0.5 : 1,
+                        pointerEvents: isRevealed ? 'none' : 'auto',
+                      }}
+                      onMouseOver={e => !isRevealed && (e.currentTarget.style.transform = 'scale(1.05)')}
+                      onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                      onClick={() => handleCardClick(card)}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -251,9 +290,14 @@ function MainGameContent() {
             
           </button>
           
-          {showTooltip && <EqualityInfo text = "In this section of the game, the rules are going to change. Now, instead of one player having better cards, the cards will be a bit more simliar." />}
+          {showTooltip && (
+            <EqualityInfo 
+              title="Equality Arch Section"
+              text="You've reached the Equality Arch! In this section, the rules change - instead of one player having better cards than the other, both players now receive similar cards. This represents equality: treating everyone the same way, regardless of where they started. The game continues, but now with more balanced opportunities for both players."
+            />
+          )}
         </div>
-      
+        <Dice />
       </main>
       {showInstructions && (
         <InstructionsModal onClose={() => setShowInstructions(false)} />

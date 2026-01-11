@@ -51,6 +51,23 @@ export default function ChooseCharacterPageContent() {
       }
     };
   }, []);
+  const arrowStyle = {
+    
+    src: '/arrow.png',
+    width: 40,
+    height: 60,
+    position: 'absolute',
+    left: '50%',
+    top: '22px',
+    transform: 'translateX(-50%)',
+    zIndex: 2,
+    pointerEvents: 'none',
+    background: 'none',
+    border: 'none',
+    padding: 0,
+    marginRight: 10,
+    cursor: 'pointer',
+  }
 
   // Spinner logic - spins for 1s, then sets result
   const spin = (player) => {
@@ -131,14 +148,7 @@ export default function ChooseCharacterPageContent() {
   };
 
   // Arrow style: perfectly centered above spinner
-  const arrowStyle = {
-    position: 'absolute',
-    left: '50%',
-    top: '42px', // adjust as needed for your arrow image
-    transform: 'translateX(-50%)',
-    zIndex: 2,
-    pointerEvents: 'none',
-  };
+
 
   // Upscale spinner size
   const spinnerSize = 160;

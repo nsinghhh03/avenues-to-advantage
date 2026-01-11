@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 import InstructionsModal from "./choosecharacter/InstructionsModal"; // adjust path as needed
 
- export default function PlayGame() {
+export default function PlayGame() {
   const [showInstructions, setShowInstructions] = useState(false);
   
   const router = useRouter();
@@ -117,7 +117,7 @@ useEffect(() => {
         </div>
         <div className={styles.boardImageWrapper}>
           <Image
-            src="/gamepic.webp"
+            src="/game-board.png"
             alt="Board game illustration"
             width={500}
             height={350}

@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState, useEffect } from 'react';
 import InstructionsModal from "./InstructionsModal";
 
-
 export default function ChooseCharacterClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -80,6 +79,25 @@ export default function ChooseCharacterClient() {
         </main>
       </div>
     );
+  }
+  if((player1 === player2)){
+    return(
+      <div className={styles.chooseCharacterFallbackPage}>
+
+<main className={styles.chooseCharacterFallbackMain}>
+  <div style={{
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: '2rem',
+    color: '#000'
+  }}>
+   Both Players Cannot Have The Same Character!
+          <button className={styles.backButton} onClick={() => router.back()}>Go Back</button>
+        </div>
+      </main>
+    </div>
+  );
   }
 
   const cleanColor = (player) => {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styles from "../playgame.module.css";
 
-export default function EqualityInfo({ text }) {
+export default function EqualityInfo({ text, title }) {
   return (
     <div style={{
       position: 'absolute',
@@ -10,47 +10,64 @@ export default function EqualityInfo({ text }) {
       transform: 'translateX(-50%)',
       backgroundColor: '#fff',
       border: '2px solid #222',
-      borderRadius: '10px',
-      padding: '12px 16px',
+      borderRadius: '12px',
+      padding: '25px 29px',
       boxShadow: '0 6px 18px rgba(0,0,0,0.12)',
       zIndex: 1000,
-      minWidth: '320px',
-      maxWidth: 'min(88vw, 520px)',
+      minWidth: '500px',
+      maxWidth: 'min(90vw, 700px)',
       display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'left',
-      gap: '12px',
+      flexDirection: 'column',
+      gap: '16px',
     }}>
       <div style={{
-        width: 44,
-        height: 44,
-        borderRadius: 10,
-        background: 'linear-gradient(180deg, #f3eef9 0%, #eef7f4 100%)',
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6)',
-        flexShrink: 0
+        alignItems: 'flex-start',
+        gap: '16px',
       }}>
-        <Image
-          src="/info-icon.png"
-          alt="Info"
-          width={45}
-          height={45}
-          style={{ display: 'block' }}
-        />
-      </div>
+        <div style={{
+          width: 50,
+          height: 50,
+          borderRadius: 10,
+          background: 'linear-gradient(180deg, #f3eef9 0%, #eef7f4 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6)',
+          flexShrink: 0
+        }}>
+          <Image
+            src="/info-icon.png"
+            alt="Info"
+            width={50}
+            height={50}
+            style={{ display: 'block' }}
+          />
+        </div>
 
-      <p style={{
-        margin: 0,
-        color: '#111',
-        fontWeight: 700,
-        fontSize: '1.05rem',
-        lineHeight: 1.4
-      }}>
-        {text}
-      </p>
+        <div style={{ flex: 1 }}>
+          {title && (
+            <h3 style={{
+              margin: '0 0 8px 0',
+              color: '#222',
+              fontWeight: 700,
+              fontSize: '1.3rem',
+              lineHeight: 1.3
+            }}>
+              {title}
+            </h3>
+          )}
+          <p style={{
+            margin: 0,
+            color: '#111',
+            fontWeight: 500,
+            fontSize: '1.1rem',
+            lineHeight: 1.5
+          }}>
+            {text}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

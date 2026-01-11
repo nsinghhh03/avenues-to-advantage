@@ -7,7 +7,7 @@ export default function InstructionsModal({ onClose }) {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(null);
   const image1 = "/dice.png";
-  const image2 = "/gameboard.png";
+  const image2 = "/game-board.png";
   const image3 = "/kids-rolling.png";
   const image4 = "/kids-moving-marker.png";
   const image5 = "/cards-display.png";
