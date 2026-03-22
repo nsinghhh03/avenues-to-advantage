@@ -1,12 +1,13 @@
 "use client";
 import styles from '../playgame.module.css';
+import pageStyles from '../../page.module.css';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense, useEffect } from 'react';
 import InstructionsModal from "../choosecharacter/InstructionsModal";
 import EqualityInfo from "./EqualityInfo";
 import Dice from "../../dice";
-
+import DiceBubble from "./DiceBubble";
 
 function MainGameContent() {
   const router = useRouter();
@@ -15,7 +16,13 @@ function MainGameContent() {
   const [revealedCard, setRevealedCard] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
   const [revealedCards, setRevealedCards] = useState(new Set());
+  const [animateInstructions, setAnimateInstructions] = useState(true);
+  const [animationPlayed, setAnimationPlayed] = useState(false);
+  const [showDiceBubble, setShowDiceBubble] = useState(true);
 
+  const handleDiceRoll = () => {
+    setShowDiceBubble(false);
+  };
   // Read params
   const player1Img = searchParams.get('player1Img') ? `/${searchParams.get('player1Img')}` : "/green_player_1.png";
   const player2Img = searchParams.get('player2Img') ? `/${searchParams.get('player2Img')}` : "/purple_player_1.png";
@@ -65,19 +72,39 @@ function MainGameContent() {
         <h1 className={styles.title}>Play Game</h1>
       </header>
       <nav className={styles.navbar}>
-        <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}> 
+        <button className={`${styles.navButton} ${styles.active}`} onClick={() => router.push('/playgame')}
+          style = {{opacity : !animateInstructions ? 1:0.2}}> 
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button className={`${styles.navButton} ${styles.instructions}`} onClick={() => setShowInstructions(true)}> 
+        <button
+          className={`${styles.navButton} ${styles.instructions} ${
+            animateInstructions ? styles['instructions-animation'] : ''
+          }`}
+          onClick={() => {
+            setShowInstructions(true);
+            if (!animationPlayed) {
+              setAnimateInstructions(false);
+            }
+          }}
+          onAnimationEnd={() => {
+            setAnimateInstructions(false);
+            setAnimationPlayed(true);
+          }}
+        >
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>
-        <button className={`${styles.navButton} ${styles.orange}`}> 
+        <button className={`${styles.navButton} ${styles.orange}`}
+          onClick={() => {
+            router.push('/playgame/videos');
+          }}
+          style = {{opacity : !animateInstructions ? 1:0.2}}> 
           <Image src="/dslr-camera.png" alt="View Videos" width={24} height={24} />
           View Videos
         </button>
-        <button className={`${styles.navButton} ${styles.blue}`}> 
+        <button className={`${styles.navButton} ${styles.blue}`}
+          style = {{opacity : !animateInstructions ? 1:0.2}}> 
           <Image src="/cards.png" alt="View Cards" width={24} height={24} />
           View Cards
         </button>
@@ -246,12 +273,22 @@ function MainGameContent() {
             </div>
           </div>
         </div>
-        {/* Bottom yellow button */}
+        {/* Yellow CTA — centered */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: 32,
+            width: '100%',
+            padding: '0 12px',
+            boxSizing: 'border-box',
+          }}
+        >
         <div style={{ position: 'relative', display: 'inline-block' }}
         >
           
           <button 
-            style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 32, marginBottom: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px'}} 
+            style={{background: '#ffd166', color: '#222', border: '2px solid #222', borderRadius: 12, fontWeight: 700, fontSize: 22, padding: '12px 32px', boxShadow: '3px 6px 0 #222', marginTop: 0, marginBottom: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px'}} 
             onClick={() => {
               const p1Img = player1Img || "/green_player_1.png";
               const p2Img = player2Img || "/purple_player_1.png";
@@ -297,7 +334,12 @@ function MainGameContent() {
             />
           )}
         </div>
-        <Dice />
+        </div>
+        {/* Dice + hint: fixed bottom-right of the viewport */}
+        <div className={pageStyles.diceDock}>
+          {showDiceBubble && <DiceBubble />}
+          <Dice onRoll={handleDiceRoll} />
+        </div>
       </main>
       {showInstructions && (
         <InstructionsModal onClose={() => setShowInstructions(false)} />

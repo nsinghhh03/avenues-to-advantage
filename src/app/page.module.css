@@ -160,6 +160,97 @@ a.secondary {
     justify-content: center;
   }
 }
+/* Maingame: dice + hint pinned to viewport bottom-right (above safe areas) */
+.diceDock {
+  position: fixed;
+  bottom: max(40px, env(safe-area-inset-bottom, 0px));
+  right: max(18px, env(safe-area-inset-right, 0px));
+  width: 132px;
+  height: 188px;
+  z-index: 900;
+  pointer-events: none;
+}
+
+.diceDock .diceBubble {
+  bottom: auto;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 132px;
+}
+
+/* Center die in dock without transform (keeps roll animation + hover translateY working) */
+.diceDock .diceFace {
+  pointer-events: auto;
+  bottom: 0;
+  left: 50%;
+  right: auto;
+  margin-left: -50px;
+}
+
+/* Tail aims at die center when bubble is centered */
+.diceDock .diceBubble::before {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.diceDock .diceBubble::after {
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.diceBubble {
+  position: absolute;
+  right: 20px;
+  bottom: 132px;
+  z-index: 1001;
+  max-width: min(280px, calc(100vw - 40px));
+  padding: 12px 16px 14px;
+  background-color: #fff;
+  border: 2px solid #222;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(34, 34, 34, 0.15), 3px 5px 0 #222;
+  pointer-events: none;
+}
+
+/* Outer border triangle (tail) */
+.diceBubble::before {
+  content: "";
+  position: absolute;
+  bottom: -13px;
+  right: 28px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 13px solid #222;
+}
+
+/* Inner fill triangle */
+.diceBubble::after {
+  content: "";
+  position: absolute;
+  bottom: -9px;
+  right: 30px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+.diceBubble p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #222;
+  text-align: center;
+}
 .diceFace {
   width: 100px;
   height: 100px;

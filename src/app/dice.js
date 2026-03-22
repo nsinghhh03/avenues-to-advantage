@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 
 
 
-function Dice(){
+function Dice({ onRoll }){
     const [diceValue, setDiceValue] = useState(1);
     const [rolling, setRolling] = useState(false);
 
@@ -17,11 +17,11 @@ function Dice(){
         6: <Face6 />
     }
     const roll = () => {
+        onRoll?.();
         setRolling(true);
         const newRoll = Math.floor(Math.random() * 6) + 1;
         setDiceValue(newRoll);
-        setRolling(false);  
-        setTimeout(() => {
+        setTimeout(() => {  
             setRolling(false);
         }, 1000);
     }

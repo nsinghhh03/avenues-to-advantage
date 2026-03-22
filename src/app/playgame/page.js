@@ -12,10 +12,6 @@ export default function PlayGame() {
   const [isMuted, setIsMuted] = useState(true);
   const audioRef = useRef(0);
   const lastClickTime = useRef(0);
-  const [animateInstructions, setAnimateInstructions] = useState(true);
-  const [animationPlayed, setAnimationPlayed] = useState(false);
- 
-
 
  const handleSpeak = () => {
   
@@ -59,38 +55,19 @@ useEffect(() => {
       </header>
       <nav className={styles.navbar}>
         
-        <button id = "playGameID"  className={`${styles.navButton} ${styles.active}`} onClick={() => {router.push('/playgame')}}
-          style = {{opacity : !animateInstructions ? 1 : 0.2}} > 
+        <button id="playGameID" className={`${styles.navButton} ${styles.active}`} onClick={() => { router.push('/playgame'); }}>
           <Image src="/game-controller.png" alt="Controller" width={24} height={24} />
           Play Game
         </button>
-        <button id  = "instructionsID" 
-          className={`${styles.navButton} ${styles.instructions} ${
-    animateInstructions ? styles['instructions-animation'] : ''
-  }`} onClick={() => {
-  setShowInstructions(true);
-    if(!animationPlayed){
-      setAnimateInstructions(false);
-    }
-
-  }}
-  onAnimationEnd={() => {
-    setAnimateInstructions(false);
-    setAnimationPlayed(true);
-  }}
-
-  
-        >
+        <button id="instructionsID" className={`${styles.navButton} ${styles.instructions}`} onClick={() => setShowInstructions(true)}>
           <Image src="/question-sign.png" alt="Instructions" width={24} height={24} />
           Instructions
         </button>
-        <button id = "cameraID" className={`${styles.navButton} ${styles.orange}`}
-        style = {{opacity : !animateInstructions ? 1 : 0.2}}> 
+        <button id="cameraID" className={`${styles.navButton} ${styles.orange}`}>
           <Image src="/dslr-camera.png" alt="View Videos" width={24} height={24} />
           View Videos
         </button>
-        <button id = "cardsID" className={`${styles.navButton} ${styles.blue}`}
-        style = {{opacity : !animateInstructions ? 1 : 0.2}}> 
+        <button id="cardsID" className={`${styles.navButton} ${styles.blue}`}>
           <Image src="/cards.png" alt="View Cards" width={24} height={24} />
           View Cards
         </button>
@@ -110,7 +87,7 @@ useEffect(() => {
             />
           </button>
           
-          <p   style={{ color: 'black' }}> 
+          <p   style={{ color: 'black', lineHeight: '2rem' }}> 
         
             Today we are going to play a board game together! This game will teach us about how external opportunities or barriers influence different people.
           </p>
